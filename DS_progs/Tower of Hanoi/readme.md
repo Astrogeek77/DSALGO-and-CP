@@ -2,30 +2,41 @@
 
 First, we put all the basic details and command lines for starting the recursive method in C:
 
-/* C program for Tower of Hanoi*/
-/*Application of Recursive function*/
-#include <stdio.h>
+In the next line, we have used a void, which is used as the function return type, and hanoifun, which works as a Hanoi function in C and C++. We have to
 
-
-In the next line, we have used a void, which is used as the function return type, and hanoifun, which works as a Hanoi function in C and C++. We have to move disks from J to L using K, so we have written the function as "J, L, and K" in the below command.
+move disks from J to L using K, so we have written the function as "J, L, and K" in the below command.
 
 void hanoifun(int n, char J, char L, char K)
-In these functions, n==1 is a boolean expression that works to return true if n is 1 or false if n is anything apart from 1.After that, we have written functions to move a disk from J to L, then hanoifun(n-1, J, K, L); is used for moving disks from J to K using L.
+
+In these functions, n==1 is a boolean expression that works to return true if n is 1 or false if n is anything apart from 1.After that, we have written 
+
+functions to move a disk from J to L, then hanoifun(n-1, J, K, L); is used for moving disks from J to K using L.
 
 At last, we used hanoifun(n-1, K, L, J); for moving disks from K to L using J. In these functions “n-1” represents that we are moving an n-1 number of disks from one tower to another.
 
+
 if (n == 1)
+
     {
+    
         printf("\n Move disk 1 from tower %c to tower %c", J, L);
+        
         return;
+        
     }
+    
     hanoifun(n-1, J, K, L);
+    
     printf("\n Move disk %d from tower %c to tower %c", n, J, L);
+    
     hanoifun(n-1, K, L, J);
 }
 
 
-So it was the brief information on the recursive method for Tower of Hanoi in C, and we have given the complete explanation of interchanging the positions of tower names in codes for having a correct output.
+
+So it was the brief information on the recursive method for Tower of Hanoi in C, and we have given the complete explanation of interchanging the positions
+
+of tower names in codes for having a correct output.
 
 
 
