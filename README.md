@@ -1,3 +1,3 @@
 # Data_Structrures_cpp_programs
 
-## CPP Programs for practice and fun..
+## DSALGO Programs for practice and fun..
