@@ -1,5 +1,4 @@
 #include <iostream>
-
 using namespace std;
 
 class Node {
@@ -177,23 +176,131 @@ void addNodeAtBegin(int data, Node **Head){
         cout << "Linked List after swapping nodes: " << endl;
         printList(*Head);
     }
+    
+    int count(Node* head, int key)
+    {
+        Node* current = head;
+        int count = 0;
+        while (current != NULL) {
+            if (current->data == key)
+                count++;
+            current = current->next;
+        }
+        return count;
+    }
 
+    void push(Node** head, int data)
+    {
+        Node* new_node = new Node();
+        new_node->data = data;
+     
+        new_node->next = (*head);
+        (*head) = new_node;
+    }
+    
+    // One based indexing used
+    int getNthNode(Node* head, int index)
+    {
+        Node* current = head;
+     
+        int count = 0;
+        while (current != NULL) {
+            if (count == (index - 1))
+                return (current->data);
+            count++;
+            current = current->next;
+        }
+        cout << "\nInvalid Index Value Passed" << endl;
+    }
+    
+    void printMiddle(class Node *Head){
+        int n = findSize(Head);
+        int mid, mid1, mid2;
+        
+        if (n %2 != 0){
+           mid = n/2 + 1; 
+           cout << "\nThe middle element is: " << getNthNode(Head, mid) << endl;
+        } 
+        else {
+            mid1 = n/2;
+            mid2 = n/2 + 1;
+            cout << "\nThe middle elements are: " << getNthNode(Head, mid1) << 
+            ", " << getNthNode(Head, mid2) << endl;
+        }
+    //     Node* slow_ptr = head;
+    //     Node* fast_ptr = head;
+  
+    //     if (head!=NULL)
+    //     {
+    //         cout << "Naruto" << endl;
+    //         while (fast_ptr != NULL && fast_ptr->next != NULL)
+    //         {
+    //             fast_ptr = fast_ptr->next->next;
+    //             slow_ptr = slow_ptr->next;
+    //         }
+    //         cout << "The middle element is [" << slow_ptr->data << "]" << endl;
+    //     }
+    }
+    
+    void pairWiseSwap(Node* head)
+    {
+        Node* temp = head;
+    
+        while (temp != NULL && temp->next != NULL) {
+            Node* temp2;
+            temp2 = temp;
+            temp = temp->next;
+            temp->next = temp2;
+            // swap(temp->data,
+            //      temp->next->data);
+            temp = temp->next->next;
+        }
+    }
+    
+    void moveToFront(Node **head) 
+    { 
+        if (*head == NULL || (*head)->next == NULL) 
+            exit(-1);
+      
+        Node *secLast = NULL; 
+        Node *last = *head; 
+      
+        while (last->next != NULL) 
+        { 
+            secLast = last; 
+            last = last->next; 
+        } 
+      
+        secLast->next = NULL; 
+        last->next = *head; 
+        *head = last; 
+    } 
+    
 
 
 int main() {
     
     Node *head = NULL;
     
-    addNodeAtEnd(9, &head);
+    // addNodeAtEnd(9, &head);
     addNodeAtBegin(3, &head);
     
     
-    addNodeAtBegin(5, &head);
-    addNodeAtEnd(2, &head);
+    // addNodeAtBegin(5, &head);
+    // addNodeAtEnd(2, &head);
+    // addNodeAtEnd(9, &head);
+    // addNodeAtEnd(4, &head);
+    push(&head, 5);
+    push(&head, 3);
+    push(&head, 6);
+    push(&head, 8);
+    push(&head, 9);
+    push(&head, 7);
+    // addNodeAtEnd(1, &head);
+    // addNodeAtEnd(10, &head);
     
     
-    
-    addNodeAfter(8, head->next);
+    // addNodeAfter(8, head->next);
     printList(head);
     
     // deleteNode(&head, head);
@@ -201,11 +308,20 @@ int main() {
     // deleteNode(&head, head->next);
     // printList(head);
     
-    // ReverseList(&head);
-    // printList(head);
+    ReverseList(&head);
+    // pairWiseSwap(head);
+    printList(head);
+    moveToFront(&head);
+    printList(head);
+    // pairWiseSwap(head);
+    printList(head);
     
-    // findSize(head);
-    swapKthNode(&head, 3);
+    cout << '\n' << "Size of Linked List: " << findSize(head) << endl;
+    printMiddle(head);
+    cout << "\nElement at Given index is " << getNthNode(head, 3);
+    // swapKthNode(&head, 3);
+    
+    cout << "\nThe Number of occurances: " << count(head, 2) << endl;
     
     return 0;
 }
