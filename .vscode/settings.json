@@ -1,5 +1,9 @@
 {
     "cSpell.words": [
         "Inorder"
-    ]
+    ],
+    "files.associations": {
+        "*.html": "html",
+        "iostream": "cpp"
+    }
 }
