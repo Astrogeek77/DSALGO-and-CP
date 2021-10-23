@@ -46,16 +46,43 @@ void printLevelorder(Tnode *node){
 
     queue<Tnode *> queue;
     queue.push(node);
+    Tnode *temp;
 
     while(queue.empty() == false){
-        Tnode *temp = queue.front();
+        temp = queue.front();
         cout << temp->data << " ";
-        queue.pop();
 
-        if(node->left != NULL) 
-            queue.push(node->left);
-        if(node->right != NULL) 
-            queue.push(node->right);
+        if(temp->left != NULL) 
+            queue.push(temp->left);
+        if(temp->right != NULL) 
+            queue.push(temp->right);
+        queue.pop();
+    }
+}
+
+bool printGivenLevel(Tnode* node, int level)
+{
+    if (node == NULL) {
+        return false;
+    }
+ 
+    if (level == 1)
+    {
+        cout << node->data << " ";
+        return true;
+    }
+ 
+    bool left = printGivenLevel(node->left, level - 1);
+    bool right = printGivenLevel(node->right, level - 1);
+ 
+    return left || right;
+}
+
+void printLevelOrderTraversal(Tnode* node)
+{
+    int level = 1;
+    while (printGivenLevel(node, level)) {
+        level++;
     }
 }
 
@@ -100,7 +127,30 @@ void iterativeInorder(Tnode *node){
     }
 }
 
+int IterativeCalcHeight(Tnode *node){
+    if(node == NULL) return 0;
 
+    queue<Tnode *> queue;
+    int height;
+    int nodeCount;
+    Tnode *current;
+
+    queue.push(node);
+    while(!queue.empty()){
+        int nodeCount = queue.size();
+        height++;
+        
+        while(nodeCount--){
+            current = queue.front();
+            
+            if(current->left != NULL) queue.push(current->left);
+            if(current->right != NULL) queue.push(current->right);
+
+            queue.pop();
+        }
+    }
+    return height;    
+}
 
 
 
@@ -131,8 +181,14 @@ int main() {
     // cout << "\nIterative Postorder traversal of binary tree is \n";
     // printPostorder(root);
 
-    cout << "\nLevel Order traversal of binary tree is \n";
-    printLevelorder(root);
+    // cout << "\nLevel Order traversal of binary tree is \n";
+    // printLevelOrderTraversal(root);
+
+    // cout << "\nIterative Level Order traversal of binary tree is \n";
+    // printLevelorder(root);
+
+    cout << "\nIterative Calc Height of the Tree is: ";
+    cout << IterativeCalcHeight(root) << endl;
 
     return 0;
 }
