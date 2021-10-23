@@ -131,8 +131,8 @@ int IterativeCalcHeight(Tnode *node){
     if(node == NULL) return 0;
 
     queue<Tnode *> queue;
-    int height;
-    int nodeCount;
+    int height = 0;
+    int nodeCount = 0;
     Tnode *current;
 
     queue.push(node);
@@ -152,7 +152,21 @@ int IterativeCalcHeight(Tnode *node){
     return height;    
 }
 
+int maxDepth(Tnode *node){
+    if(node == NULL) 
+        return 0;
+    else {
+        int leftDepth = maxDepth(node->left);
+        int rightDepth = maxDepth(node->right);
 
+        if(leftDepth < rightDepth)
+            return (leftDepth + 1);
+        else return (rightDepth + 1);
+
+        // cout << leftDepth << rightDepth << endl;
+    }
+    // return (max(leftDepth, rightDepth) + 1);
+}
 
 int main() {
     Tnode* root = new Tnode(7);
@@ -160,8 +174,14 @@ int main() {
     root->right = new Tnode(10);
     root->left->left = new Tnode(3);
     root->left->right = new Tnode(4);
-    root->right->left = new Tnode(2);
-    root->right->right = new Tnode(8);
+    // root->right->left = new Tnode(2);
+    // root->right->right = new Tnode(8);
+
+    // Tnode *root = new Tnode(1);
+    // root->left = new Tnode(2);
+    // root->right = new Tnode(3);
+    // root->left->left = new Tnode(4);
+    // root->left->right = new Tnode(5);
     
     // cout << "\nPreorder traversal of binary tree is \n";
     // printPreorder(root);
@@ -189,6 +209,9 @@ int main() {
 
     cout << "\nIterative Calc Height of the Tree is: ";
     cout << IterativeCalcHeight(root) << endl;
+
+    cout << "\nCalc Depth of the Tree is: ";
+    cout << maxDepth(root) << endl;
 
     return 0;
 }
