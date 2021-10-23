@@ -127,6 +127,32 @@ void iterativeInorder(Tnode *node){
     }
 }
 
+void IterativePostorder(Tnode *node){
+    if(node == NULL) return;
+
+    stack<Tnode*> stack1;
+    stack<Tnode*> stack2;
+
+    Tnode *temp;
+
+    stack1.push(node);
+
+    while(!stack1.empty()){
+        temp = stack1.top();
+        stack1.pop();
+        stack2.push(temp);
+
+        if(temp->left != NULL) stack1.push(temp->left);
+        if(temp->right != NULL) stack1.push(temp->right);
+    }
+
+    while(!stack2.empty()){
+        temp = stack2.top();
+        stack2.pop();
+        cout << temp->data << " ";
+    }
+}
+
 int IterativeCalcHeight(Tnode *node){
     if(node == NULL) return 0;
 
@@ -170,18 +196,14 @@ int maxDepth(Tnode *node){
 
 int main() {
     Tnode* root = new Tnode(7);
-    // root->left = new Tnode(9);
-    // root->right = new Tnode(10);
-    // root->left->left = new Tnode(3);
-    // root->left->right = new Tnode(4);
-    // root->right->left = new Tnode(2);
-    // root->right->right = new Tnode(8);
+    root->left = new Tnode(9);
+    root->right = new Tnode(10);
+    root->left->left = new Tnode(3);
+    root->left->right = new Tnode(4);
+    root->right->left = new Tnode(2);
+    root->right->right = new Tnode(8);
 
-    // Tnode *root = new Tnode(1);
-    // root->left = new Tnode(2);
-    // root->right = new Tnode(3);
-    // root->left->left = new Tnode(4);
-    // root->left->right = new Tnode(5);
+    // Traversals
     
     // cout << "\nPreorder traversal of binary tree is \n";
     // printPreorder(root);
@@ -198,8 +220,11 @@ int main() {
     // cout << "\nIterative Inorder traversal of binary tree is \n";
     // iterativeInorder(root);
 
-    // cout << "\nIterative Postorder traversal of binary tree is \n";
-    // printPostorder(root);
+    cout << "\nIterative Postorder traversal (using 2 stacks) of binary tree is \n";
+    IterativePostorder(root);
+
+    cout << "\nIterative Postorder traversal (using 1 stack) of binary tree is \n";
+    IterativePostorder(root);
 
     // cout << "\nLevel Order traversal of binary tree is \n";
     // printLevelOrderTraversal(root);
@@ -207,11 +232,13 @@ int main() {
     // cout << "\nIterative Level Order traversal of binary tree is \n";
     // printLevelorder(root);
 
-    cout << "\nIterative Calc Height of the Tree is: ";
-    cout << IterativeCalcHeight(root) << endl;
+    // Operations
 
-    cout << "\nCalc Depth of the Tree is: ";
-    cout << maxDepth(root) << endl;
+    // cout << "\nIterative Calc Height of the Tree is: ";
+    // cout << IterativeCalcHeight(root) << endl;
+
+    // cout << "\nCalc Depth of the Tree is: ";
+    // cout << maxDepth(root) << endl;
 
     return 0;
 }
