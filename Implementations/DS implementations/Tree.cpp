@@ -170,10 +170,10 @@ int maxDepth(Tnode *node){
 
 int main() {
     Tnode* root = new Tnode(7);
-    root->left = new Tnode(9);
-    root->right = new Tnode(10);
-    root->left->left = new Tnode(3);
-    root->left->right = new Tnode(4);
+    // root->left = new Tnode(9);
+    // root->right = new Tnode(10);
+    // root->left->left = new Tnode(3);
+    // root->left->right = new Tnode(4);
     // root->right->left = new Tnode(2);
     // root->right->right = new Tnode(8);
 
