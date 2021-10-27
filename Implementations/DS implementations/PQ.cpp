@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// Priority Queue by default gives max heap in cpp
+
 void showpq(priority_queue<int> pq)
 {
     priority_queue<int> g = pq;
@@ -28,14 +30,16 @@ void showMinHeap(
 
 int main()
 {
+    // Max Heap
     priority_queue<int> my_priority_queue;
     my_priority_queue.push(1);
     my_priority_queue.push(2);
     my_priority_queue.push(3);
-    my_priority_queue.push(4);
     my_priority_queue.push(5);
+    my_priority_queue.push(4);
 
 
+    // Min Heap
     priority_queue<int, vector<int>, greater<int> > priority_queue2;
     priority_queue2.push(10);
     priority_queue2.push(30);
@@ -43,7 +47,7 @@ int main()
     priority_queue2.push(5);
     priority_queue2.push(1); 
 
-    cout << "\nmy_priority_queue           :";
+    cout << "\nMax-Heap priority_queue  :";
     showpq(my_priority_queue);
 
     cout << "\nMin-Heap priority_queue2 :";
