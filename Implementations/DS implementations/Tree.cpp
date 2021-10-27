@@ -42,6 +42,7 @@ void printPostorder(Tnode *node){
 
 void printLevelorder(Tnode *node){
     // level by level
+    // Breadth First Search
     if(node == NULL) return;
 
     queue<Tnode *> queue;

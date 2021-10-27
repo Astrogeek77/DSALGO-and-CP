@@ -1,12 +1,15 @@
 {
     "cSpell.words": [
-        "Inorder"
+        "Inorder",
+        "showpq"
     ],
     "files.associations": {
         "*.html": "html",
         "iostream": "cpp",
         "deque": "cpp",
         "forward_list": "cpp",
-        "list": "cpp"
-    }
+        "list": "cpp",
+        "queue": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
