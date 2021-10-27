@@ -28,6 +28,23 @@ void showMinHeap(
     cout << ' ';
 }
 
+void MinfromMax(){
+    // negating the values twice helps us get a min heap from the default max heap of PQ.
+    int arr[] = { 25, 7, 9, 15, 20, 36, 50 };
+   
+    priority_queue<int> pq;
+    int n = sizeof(arr) / sizeof(arr[0]);
+ 
+    for (int i = 0; i < n; i++) {
+        pq.push((-1) * arr[i]);
+    }
+    while (!pq.empty()) {
+        cout << "\t" <<  (pq.top()) * (-1) << " ";
+        pq.pop();
+    }
+    cout << " ";
+}
+
 int main()
 {
     // Max Heap
@@ -52,6 +69,9 @@ int main()
 
     cout << "\nMin-Heap priority_queue2 :";
     showMinHeap(priority_queue2);
+
+    cout << "\nMin-Heap from Max-Heap   :";
+    MinfromMax();
 
     cout << "\nmy_priority_queue.size() :\t" << my_priority_queue.size();
     cout << "\nmy_priority_queue.top()  :\t" << my_priority_queue.top();
