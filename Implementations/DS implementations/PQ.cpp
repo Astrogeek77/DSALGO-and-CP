@@ -4,16 +4,19 @@
 
 using namespace std;
 
-void showpq(priority_queue<int> pq){
+void showpq(priority_queue<int> pq)
+{
     priority_queue<int> g = pq;
-    while(!g.empty()){
-         cout << '\t' << g.top();
-         g.pop();
+    while (!g.empty())
+    {
+        cout << '\t' << g.top();
+        g.pop();
     }
     cout << endl;
 }
 
-int main() {
+int main()
+{
     priority_queue<int> priority_queue;
     priority_queue.push(1);
     priority_queue.push(2);
