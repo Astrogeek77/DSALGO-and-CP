@@ -12,26 +12,52 @@ void showpq(priority_queue<int> pq)
         cout << '\t' << g.top();
         g.pop();
     }
-    cout << endl;
+    cout << " ";
+}
+
+void showMinHeap(
+    priority_queue<int, vector<int>, greater<int> > gq)
+{
+    priority_queue<int, vector<int>, greater<int> > g = gq;
+    while (!g.empty()) {
+        cout << '\t' << g.top();
+        g.pop();
+    }
+    cout << ' ';
 }
 
 int main()
 {
-    priority_queue<int> priority_queue;
-    priority_queue.push(1);
-    priority_queue.push(2);
-    priority_queue.push(3);
-    priority_queue.push(4);
-    priority_queue.push(5);
+    priority_queue<int> my_priority_queue;
+    my_priority_queue.push(1);
+    my_priority_queue.push(2);
+    my_priority_queue.push(3);
+    my_priority_queue.push(4);
+    my_priority_queue.push(5);
 
-    cout << "\npriority_queue :";
-    showpq(priority_queue);
 
-    cout << "\npriority_queue.size() : " << priority_queue.size();
-    cout << "\npriority_queue.top()  : " << priority_queue.top();
-    cout << "\npriority_queue.pop()  :";
-    priority_queue.pop();
+    priority_queue<int, vector<int>, greater<int> > priority_queue2;
+    priority_queue2.push(10);
+    priority_queue2.push(30);
+    priority_queue2.push(20);
+    priority_queue2.push(5);
+    priority_queue2.push(1); 
 
-    showpq(priority_queue);
+    cout << "\nmy_priority_queue           :";
+    showpq(my_priority_queue);
+
+    cout << "\nMin-Heap priority_queue2 :";
+    showMinHeap(priority_queue2);
+
+    cout << "\nmy_priority_queue.size() :\t" << my_priority_queue.size();
+    cout << "\nmy_priority_queue.top()  :\t" << my_priority_queue.top();
+    cout << "\nmy_priority_queue.pop()  :";
+    my_priority_queue.pop();
+    showpq(my_priority_queue);
+
+    my_priority_queue.push(6);
+    cout << "\nmy_priority_queue.push(6) :";
+    showpq(my_priority_queue);
+
     return 0;
 }
