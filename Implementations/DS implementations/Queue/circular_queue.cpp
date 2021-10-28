@@ -1,14 +1,14 @@
 #include <iostream>
 #include <string>
 #include <bits/stdc++.h>
-#define MAX 5
+#define MAX 50
 using namespace std;
 
 int cqueue_arr[MAX];
 int front = -1;
 int rear = -1;
 
-// Function to insert value to the cirqu
+// Function to insert value to the cirqueue
 void insertEl(int item)
 {
     if ((front == 0 && rear == MAX - 1) || (front == rear + 1))
