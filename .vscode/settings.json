@@ -10,7 +10,8 @@
         "deque": "cpp",
         "forward_list": "cpp",
         "list": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "ostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
