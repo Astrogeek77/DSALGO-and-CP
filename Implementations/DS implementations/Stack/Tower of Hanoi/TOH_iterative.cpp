@@ -56,7 +56,7 @@ int pop(struct Stack *stack)
 //Function to show the movement of disks
 void moveDisk(char fromPeg, char toPeg, int disk)
 {
-    printf("Move the disk %d from \'%c\' to \'%c\'\n",
+    printf("Move the disk %d from Rod \'%c\' to Rod \'%c\'\n",
            disk, fromPeg, toPeg);
 }
 
@@ -103,7 +103,7 @@ void tohIterative(int num_of_disks, struct Stack *src, struct Stack *aux,
                   struct Stack *dest)
 {
     int i, total_num_of_moves;
-    char s = 'S', d = 'D', a = 'A';
+    char s = 'A', d = 'B', a = 'C';
 
     // If number of disks is even, then interchange
     // destination pole and auxiliary pole
