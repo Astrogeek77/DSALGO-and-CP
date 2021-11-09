@@ -105,11 +105,51 @@ public:
         }
         return node;
     }
+
+    BST* BSTfromPreorder(vector<int> preorder){
+        int size = preorder.size();
+
+        if(size == 0) return NULL;
+        BST* root = NULL;
+
+        for(auto x: preorder) {
+            root = insert(root, x);
+        }
+        return root;
+    }
+
+    bool checkBST(BST* root, int min, int max){
+        int d = root->data;
+        if(root == NULL) return true;
+        // BST *temp = new BST;
+        // temp = root;
+        // bool isBST = true;
+
+        // while(temp!= NULL){
+        //     if(temp->data > temp->left->data) temp = temp->left;
+        //     else {
+        //         isBST = false;
+        //         break;
+        //     }
+        //     if(temp->data < temp->right->data) temp = temp->right;
+        //     else {
+        //         isBST = false;
+        //         break;
+        //     }
+        // }
+
+        if (root->data < max || root->data > min){
+            return false;
+        }
+        
+        return checkBST(root->left, min, d - 1) && checkBST(root->right, d + 1, max);
+    }
 };
 
 int main()
 {
-    BST b, *root = NULL;
+    BST b;
+    BST *root = NULL;
     root = b.insert(root, 50);
     b.insert(root, 30);
     b.insert(root, 20);
@@ -120,31 +160,42 @@ int main()
     b.insert(root, 10);
     b.insert(root, 5);
 
-    cout << "Inorder Traversal: ";
-    b.inorder(root);
-    cout << endl;
+    // cout << "Inorder Traversal: ";
+    // b.inorder(root);
+    // cout << endl;
 
-    int key = 40;
-    if (b.search(root, key) == -1)
-        cout << "Element Not Found." << endl;
-    else
-        cout << "Element " << key << " Found at Depth: " << b.search(root, key) << endl;
+    // int key = 40;
+    // if (b.search(root, key) == -1)
+    //     cout << "Element Not Found." << endl;
+    // else
+    //     cout << "Element " << key << " Found at Depth: " << b.search(root, key) << endl;
 
-    cout << "minValueNode: " << (b.minValueNode(root))->data << endl;
+    // cout << "minValueNode: " << (b.minValueNode(root))->data << endl;
 
-    int key2 = 30;
-    cout << "delete " << key2 << endl;
-    root = b.deleteNode(root, key2);
-    cout << "Inorder Traversal: ";
-    b.inorder(root);
-    cout << endl;
+    // int key2 = 30;
+    // cout << "delete " << key2 << endl;
+    // root = b.deleteNode(root, key2);
+    // cout << "Inorder Traversal: ";
+    // b.inorder(root);
+    // cout << endl;
 
-    int key3 = 5;
-    cout << "delete " << key3 << endl;
-    root = b.deleteNode(root, key3);
-    cout << "Inorder Traversal: ";
-    b.inorder(root);
-    cout << endl;
+    // int key3 = 5;
+    // cout << "delete " << key3 << endl;
+    // root = b.deleteNode(root, key3);
+    // cout << "Inorder Traversal: ";
+    // b.inorder(root);
+    // cout << endl;
+
+    // BST from Preorder
+
+    // vector<int> preorder{10, 5, 1, 7, 40, 50 };
+
+    // BST* root2 = b.BSTfromPreorder(preorder);
+
+    // b.inorder(root2);
+
+    bool isBST = b.checkBST(root, INT_MIN, INT_MAX);
+    cout<<((isBST == true) ? "YES" : "NO");
 
     return 0;
 }
