@@ -3,21 +3,24 @@
 using namespace std;
 
 void insertionSort(int arr[], int n){
-    int j;
+    int j, swaps = 0, comps = 0;
      for(j = 1; j < n; j++){
         int i = j - 1; 
         int key = arr[j];
         
         while(i >= 0 && arr[i] > key){
+            swaps++;
             arr[i + 1] = arr[i];
             i--;
-            
         }
+        comps++;
         arr[i + 1] = key;
         
         for(int k = 0; k < n; k++) printf("Arr[%d] = %d\t", k, arr[k]);
         cout << endl;
     }
+    printf("\nComparisons Made: %d\n", comps);
+    printf("Element moves Made: %d\n", swaps);
 }
 
 void printArray(int arr[], int n)
@@ -38,5 +41,3 @@ int main() {
     printArray(arr, n);
     return 0;
 }
-
-
