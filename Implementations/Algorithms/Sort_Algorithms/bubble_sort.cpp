@@ -45,5 +45,7 @@ int main()
     
     bubbleSort(arr, n);
     printArray(arr, n);
+
+    system("PAUSE");
     return 0;
 }

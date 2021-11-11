@@ -39,5 +39,7 @@ int main() {
  
     insertionSort(arr, n);
     printArray(arr, n);
+
+    system("PAUSE");
     return 0;
 }
