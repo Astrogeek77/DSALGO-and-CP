@@ -35,7 +35,28 @@ void heapify(vector<int> &heapTree, int i)
     heapify(heapTree, largest);
   }
 
-  printArray(heapTree);
+  // printArray(heapTree);
+}
+
+void minHeapify(vector<int> &heapTree, int i)
+{
+  int smallest = i;
+  int size = heapTree.size();
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
+
+  while (l < size && heapTree[l] < heapTree[smallest])
+    smallest = l;
+  while (r < size && heapTree[r] < heapTree[smallest])
+    smallest = r;
+
+  if (smallest != i)
+  {
+    swap(&heapTree[i], &heapTree[smallest]);
+    minHeapify(heapTree, smallest);
+  }
+
+  // printArray(heapTree);
 }
 
 void insert(vector<int> &heapTree, int num)
@@ -71,14 +92,34 @@ void deleteItem(vector<int> &heapTree, int num)
     }
   }
 
-  if(notfound) cout << "Element Not Found." << endl;
+  if (notfound)
+    cout << "Element Not Found." << endl;
 
-  for (int i = 0; i < size / 2 - 1; i++)
+  // for (int i = 0; i < size / 2 - 1; i++)
+  //   heapify(heapTree, i);
+  for (int i = size / 2; i >= 0; i--)
     heapify(heapTree, i);
 }
 
-int maxEl(vector<int> heapTree){
-    return heapTree[0];
+int maxEl(vector<int> heapTree)
+{
+  return heapTree[0];
+}
+
+vector<int> heapSort(vector<int> arr)
+{
+  int size = arr.size() - 1;
+
+  for (int i = size / 2; i >= 0; i--)
+    heapify(arr, i);
+
+  for (int i = size; i >= 0; i--)
+  {
+    swap(&arr[i], &arr[0]);
+    heapify(arr, i);
+  }
+
+  return arr;
 }
 
 int main()
@@ -98,16 +139,28 @@ int main()
   cout << "Max-Heap array: ";
   printArray(heapTree);
 
-//   int max = *max_element(heapTree.begin(), heapTree.end());
-
-//   cout << "Max Element in the Heap: " << max << endl;
+  //   int max = *max_element(heapTree.begin(), heapTree.end());
+  //   cout << "Max Element in the Heap: " << max << endl;
   printf("Max Element in the Heap: %d\n", heapTree[0]);
 
-  deleteItem(heapTree, 2);
+  // deleteItem(heapTree, 2);
+  // cout << "After deleting an element: ";
+  // printArray(heapTree);
 
-  cout << "After deleting an element: ";
+  vector<int> arr = {12, 11, 13, 5, 6, 7};
+  cout << "After Applying HeapSort(Min-Heap): ";
+  arr = heapSort(arr);
+  printArray(arr);
 
+  cout << "Min-Heap array: ";
+  int size = heapTree.size();
+  for (int i = size / 2; i >= 0; i--){
+    minHeapify(heapTree, i);
+  }   
   printArray(heapTree);
-//   system("pause");
+  vector<int> heapTree2 = heapSort(heapTree);
+  printArray(heapTree2);
+
+  //   system("pause");
   return 0;
 }
