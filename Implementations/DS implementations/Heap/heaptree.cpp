@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+// #include <algorithm>
 using namespace std;
 
 void swap(int *a, int *b)
@@ -10,12 +10,19 @@ void swap(int *a, int *b)
   *a = temp;
 }
 
+void printArray(vector<int> &heapTree)
+{
+  for (int i = 0; i < heapTree.size(); i++)
+    cout << heapTree[i] << " ";
+  cout << "\n";
+}
+
 void heapify(vector<int> &heapTree, int i)
 {
   int largest = i;
   int size = heapTree.size();
-  int l = 2 * i - 1;
-  int r = 2 * i + 1;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
 
   while (l < size && heapTree[l] > heapTree[largest])
     largest = l;
@@ -27,6 +34,8 @@ void heapify(vector<int> &heapTree, int i)
     swap(&heapTree[i], &heapTree[largest]);
     heapify(heapTree, largest);
   }
+
+  printArray(heapTree);
 }
 
 void insert(vector<int> &heapTree, int num)
@@ -37,19 +46,12 @@ void insert(vector<int> &heapTree, int num)
   else
   {
     heapTree.push_back(num);
-    for (int i = size / 2 - 1; i >= 0; i--)
+    for (int i = size / 2; i >= 0; i--)
       heapify(heapTree, i);
   }
 }
 
-void printArray(vector<int> &heapTree)
-{
-  for (int i = 0; i < heapTree.size(); i++)
-    cout << heapTree[i] << " ";
-  cout << "\n";
-}
-
-void deleteItem(vector<int> &heapTree, int num, int max)
+void deleteItem(vector<int> &heapTree, int num)
 {
   int size = heapTree.size();
   int i = 0;
@@ -75,6 +77,10 @@ void deleteItem(vector<int> &heapTree, int num, int max)
     heapify(heapTree, i);
 }
 
+int maxEl(vector<int> heapTree){
+    return heapTree[0];
+}
+
 int main()
 {
   vector<int> heapTree;
@@ -84,21 +90,24 @@ int main()
   insert(heapTree, 1);
   insert(heapTree, 4);
   insert(heapTree, 9);
+  insert(heapTree, 12);
   insert(heapTree, 5);
   insert(heapTree, 2);
+  insert(heapTree, 11);
 
   cout << "Max-Heap array: ";
   printArray(heapTree);
 
-  int max = *max_element(heapTree.begin(), heapTree.end());
+//   int max = *max_element(heapTree.begin(), heapTree.end());
 
-  cout << max << endl;
+//   cout << "Max Element in the Heap: " << max << endl;
+  printf("Max Element in the Heap: %d\n", heapTree[0]);
 
-  deleteItem(heapTree, 2, max);
+  deleteItem(heapTree, 2);
 
   cout << "After deleting an element: ";
 
   printArray(heapTree);
-  system("pause");
+//   system("pause");
   return 0;
 }
