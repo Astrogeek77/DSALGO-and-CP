@@ -106,20 +106,18 @@ int maxEl(vector<int> heapTree)
   return heapTree[0];
 }
 
-vector<int> heapSort(vector<int> arr)
+void heapSort(vector<int> &arr)
 {
-  int size = arr.size() - 1;
-
-  for (int i = size / 2; i >= 0; i--)
-    heapify(arr, i);
+  int size = arr.size();
 
   for (int i = size; i >= 0; i--)
-  {
-    swap(&arr[i], &arr[0]);
     heapify(arr, i);
-  }
 
-  return arr;
+  for (int j = size - 1; j > 0; j--)
+  {
+    swap(&arr[0], &arr[j]);
+    heapify(arr, j);
+  }
 }
 
 int main()
@@ -149,17 +147,18 @@ int main()
 
   vector<int> arr = {12, 11, 13, 5, 6, 7};
   cout << "After Applying HeapSort(Min-Heap): ";
-  arr = heapSort(arr);
+  heapSort(arr);
   printArray(arr);
 
   cout << "Min-Heap array: ";
   int size = heapTree.size();
-  for (int i = size / 2; i >= 0; i--){
+  for (int i = size / 2 - 1; i >= 0; i--){
     minHeapify(heapTree, i);
   }   
   printArray(heapTree);
-  vector<int> heapTree2 = heapSort(heapTree);
-  printArray(heapTree2);
+  cout << "Min Element in the Heap: " << heapTree[0] << endl;
+  // vector<int> heapTree2 = heapSort(heapTree);
+  // printArray(heapTree2);
 
   //   system("pause");
   return 0;
