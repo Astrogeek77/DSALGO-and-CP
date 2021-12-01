@@ -109,15 +109,24 @@ int maxEl(vector<int> heapTree)
 void heapSort(vector<int> &arr)
 {
   int size = arr.size();
+  int array[size] = {};
 
-  for (int i = size; i >= 0; i--)
-    heapify(arr, i);
 
-  for (int j = size - 1; j > 0; j--)
+  for (int i = 1; i >= size/2; i++){
+      cout << size/2 << " : " << i <<  endl;
+      heapify(arr, i);
+  }
+    
+
+  for (int j = size - 1; j >= 0; j--)
   {
-    swap(&arr[0], &arr[j]);
+    array[j] = arr[0];
+    swap(arr[0], arr[j]);
     heapify(arr, j);
   }
+  for (int i = 0; i < size; i++)
+    cout << "Arr" << array[i] << " ";
+  cout << endl;
 }
 
 int main()
@@ -139,7 +148,7 @@ int main()
 
   //   int max = *max_element(heapTree.begin(), heapTree.end());
   //   cout << "Max Element in the Heap: " << max << endl;
-  printf("Max Element in the Heap: %d\n", heapTree[0]);
+  // printf("Max Element in the Heap: %d\n", heapTree[0]);
 
   // deleteItem(heapTree, 2);
   // cout << "After deleting an element: ";
@@ -150,13 +159,13 @@ int main()
   heapSort(arr);
   printArray(arr);
 
-  cout << "Min-Heap array: ";
-  int size = heapTree.size();
-  for (int i = size / 2 - 1; i >= 0; i--){
-    minHeapify(heapTree, i);
-  }   
-  printArray(heapTree);
-  cout << "Min Element in the Heap: " << heapTree[0] << endl;
+  // cout << "Min-Heap array: ";
+  // int size = heapTree.size();
+  // for (int i = size / 2 - 1; i >= 0; i--){
+  //   minHeapify(heapTree, i);
+  // }   
+  // printArray(heapTree);
+  // cout << "Min Element in the Heap: " << heapTree[0] << endl;
   // vector<int> heapTree2 = heapSort(heapTree);
   // printArray(heapTree2);
 
