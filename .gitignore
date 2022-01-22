@@ -1,2 +1,4 @@
 .vscode
 node-modules
+.exe
+.dist
