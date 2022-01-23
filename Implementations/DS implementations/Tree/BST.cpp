@@ -1,3 +1,11 @@
+// The properties that separate a binary search tree from a regular binary tree is
+
+// All nodes of left subtree are less than the root node
+// All nodes of right subtree are more than the root node
+// Both subtrees of each node are also BSTs i.e. they have the above two properties
+
+
+
 #include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
@@ -199,3 +207,17 @@ int main()
 
     return 0;
 }
+
+
+// Binary Search Tree Complexities
+// Time Complexity
+// Operation	Best Case Complexity	Average Case Complexity	  Worst Case Complexity
+// Search	            O(log n)	            O(log n)	            O(n)
+// Insertion	        O(log n)	            O(log n)	            O(n)
+// Deletion	            O(log n)	            O(log n)	            O(n)
+// Here, n is the number of nodes in the tree.
+
+// Space Complexity
+// The space complexity for all the operations is O(n).
+
+// AVL Tree ⊆ BST ⊆ Binary Tree but not vice-versa
