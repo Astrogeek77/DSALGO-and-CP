@@ -38,3 +38,34 @@ int main()
         }
     }
 }
+
+cout << "--------------------------------" << endl;
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// bool cmp(pair<int, string> a, pair<int, string> b)
+// {
+//     if (a.first != b.first)
+//         return a > b;
+//     return a.second < b.second;
+// }
+
+// int main()
+// {
+//     vector<pair<int, string>> v_p;
+//     int T;
+//     cin >> T;
+//     while (T--)
+//     {
+//         string str;
+//         int marks;
+//         cin >> str >> marks;
+//         v_p.push_back({marks, str});
+//     }
+
+//     sort(v_p.begin(), v_p.end(), cmp);
+
+//     for (auto v : v_p)
+//         cout << v.second << " " << v.first << endl;
+// }

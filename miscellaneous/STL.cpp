@@ -126,21 +126,42 @@ int main(){
     //     cout << value << endl;
 
 
-    multiset<pair<int, int> >m_s; // just like maps and sets but can store non-unique values
-    m_s.insert(make_pair(1, 2));
-    m_s.insert({2, 4});
-    m_s.insert({2, 4});
-    m_s.insert(pair<int, int>(3, 6));
+    // multiset<pair<int, int> >m_s; // just like maps and sets but can store non-unique values
+    // m_s.insert(make_pair(1, 2));
+    // m_s.insert({2, 4});
+    // m_s.insert({2, 4});
+    // m_s.insert(pair<int, int>(3, 6));
 
-    cout << m_s.size() << endl;
-    for(auto &value : m_s) cout << value.first << " " << value.second << endl;
+    // cout << m_s.size() << endl;
+    // for(auto &value : m_s) cout << value.first << " " << value.second << endl;
 
-    auto it = m_s.find({2, 4});
+    // auto it = m_s.find({2, 4});
 
-    // if(it != m_s.end()) m_s.erase(it); // removes the first occurence only.
+    // // if(it != m_s.end()) m_s.erase(it); // removes the first occurence only.
 
-    m_s.erase({2, 4}); // removes all the occurences.
-    cout << "================================================================" << endl;
-    cout << m_s.size() << endl;
-    for(auto &value : m_s) cout << value.first << " " << value.second << endl;
+    // m_s.erase({2, 4}); // removes all the occurences.
+    // cout << "================================================================" << endl;
+    // cout << m_s.size() << endl;
+    // for(auto &value : m_s) cout << value.first << " " << value.second << endl;
+
+    // vector<int> v = {2, 3, 7, 8, 12, 55};
+
+    // sort(v.begin(), v.end()); // vector needs to be sorted.
+
+    // auto lower = lower_bound(v.begin(), v.end(), 55); // O(log(n))
+    // auto upper = upper_bound(v.begin(), v.end(), 55); // O(log(n))
+
+    // cout << "lower_bound: " << (*lower) << endl;
+    // cout << "upper_bound: " << (*upper) << endl;
+
+    set<int> s = {1, 2, 4, 6, 8, 9, 11}; 
+
+    // sort(s.begin(), s.end());
+
+    // auto lower = lower_bound(s.begin(), s.end(), 4); // O(n) in cases of sets and maps
+    auto lower = s.lower_bound(5); // O(log(n))
+    auto upper = s.upper_bound(5); // O(log(n))
+
+    cout << "lower_bound: " << (*lower) << endl;
+    cout << "upper_bound: " << (*upper) << endl;
  }
