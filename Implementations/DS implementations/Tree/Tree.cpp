@@ -112,7 +112,7 @@ void iterativePreorder(Tnode *node)
     while (stack.empty() == false)
     {
         Tnode *temp = stack.top();
-        cout << temp->data << " ";
+        cout << temp->data << ", ";
         stack.pop();
 
         // right is pushed first so that left is processed first
