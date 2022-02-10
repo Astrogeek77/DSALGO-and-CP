@@ -1,7 +1,10 @@
 #include <bits/stdc++.h>
 #include <iostream>
-#define MAX = 100;
+// #define MAX = 1e7+10;
 using namespace std;
+
+int MIN = 1e-7;
+int MAX = 1e7;
 
 vector<int> result;
 
@@ -54,23 +57,154 @@ void DFTRecursive(Node *root)
     DFTRecursive(root->right);
 }
 
-void BFT(Node *root){
+void BFT(Node *root)
+{
     // level by level
-    if (root == NULL) return;
+    if (root == NULL)
+        return;
 
     queue<Node *> queue;
     queue.push(root);
 
-    while(!queue.empty()){
+    while (!queue.empty())
+    {
         Node *current = queue.front();
         cout << current->data << ", ";
 
-        if(current->left) queue.push(current->left);
-        if(current->right) queue.push(current->right);
+        if (current->left)
+            queue.push(current->left);
+        if (current->right)
+            queue.push(current->right);
 
         queue.pop();
     }
 }
+
+bool treeIncludes(Node *root, int key)
+{
+    if (root == NULL)
+        return false;
+    if (root->data == key)
+        return true;
+
+    queue<Node *> queue;
+    queue.push(root);
+
+    while (!queue.empty())
+    {
+        Node *current = queue.front();
+        if (current->data == key)
+            return true;
+
+        if (current->left)
+            queue.push(current->left);
+        if (current->right)
+            queue.push(current->right);
+
+        queue.pop();
+    }
+    return false;
+}
+
+bool treeIncludesRecursive(Node *root, int key)
+{
+    if (root == NULL)
+        return false;
+    if (root->data == key)
+        return true;
+
+    return treeIncludes(root->left, key) || treeIncludes(root->right, key);
+}
+
+int treeSumRecursive(Node *root, int sum)
+{
+    if (root == NULL)
+        return 0;
+    sum += root->data + treeSumRecursive(root->left, sum) + treeSumRecursive(root->right, sum);
+    return sum;
+}
+
+int treeSum(Node *root, int sum)
+{
+    // Breadth First Traversal
+    if (root == NULL)
+        return 0;
+
+    queue<Node *> queue;
+    queue.push(root);
+
+    while (!queue.empty())
+    {
+        Node *current = queue.front();
+        sum += current->data;
+
+        if (current->left)
+            queue.push(current->left);
+        if (current->right)
+            queue.push(current->right);
+
+        queue.pop();
+    }
+
+    return sum;
+}
+
+int findMinRecursive(Node *root)
+{
+    if (root == NULL)
+        return MAX;
+
+    return min(findMinRecursive(root->left), min(findMinRecursive(root->right), root->data));
+}
+
+int findMaxRecursive(Node *root)
+{
+    if (root == NULL)
+        return MIN;
+
+    return max(findMaxRecursive(root->left), max(findMaxRecursive(root->right), root->data));
+}
+
+int findMin(Node *root)
+{
+    if (root == NULL)
+        return MAX;
+
+    queue<Node *> queue;
+    int minvalue = root->data;
+    queue.push(root);
+
+    while (!queue.empty())
+    {
+        Node *current = queue.front();
+        if (minvalue > current->data)
+            minvalue = current->data;
+
+        if (current->left)
+            queue.push(current->left);
+        if (current->right)
+            queue.push(current->right);
+
+        queue.pop();
+    }
+    return minvalue;
+}
+
+int maxRoottoLeafSum(Node *root){
+    if (root == NULL) return MIN;
+    if(root->left == NULL && root->right == NULL) return root->data;
+
+    return max(maxRoottoLeafSum(root->left) + root->data, maxRoottoLeafSum(root->right) + root->data);
+}
+
+int minRoottoLeafSum(Node *root){
+    if (root == NULL) return MAX;
+    if(root->left == NULL && root->right == NULL) return root->data;
+
+    return min(minRoottoLeafSum(root->left) + root->data, minRoottoLeafSum(root->right) + root->data);
+}
+
+
 
 int main()
 {
@@ -92,8 +226,30 @@ int main()
 
     cout << "\nDepth First traversal of binary tree is \n";
     DFT(root);
+
     cout << "\nDepth First traversal (Recursive) of binary tree is \n";
     DFTRecursive(root);
+
     cout << "\nBreadth First traversal of binary tree is \n";
     BFT(root);
+
+    int key = 5;
+    // cout << "\nEnter Element to Search: " << endl;
+    // cin >> key;
+    cout << endl;
+    // treeIncludes(root, key) == true ? printf("Tree Contains %d", key) : printf("Tree Does not contain %d", key);
+    treeIncludesRecursive(root, key) == true ? printf("Tree Contains %d", key) : printf("Tree Does not contain %d", key);
+    cout << endl;
+
+    int sum = 0;
+    // sum = treeSumRecursive(root, sum);
+    sum = treeSum(root, sum);
+    cout << "The Tree Sum is: " << sum << endl;
+
+    // cout << "The Smallest value in the tree is: " << findMin(root) << endl;
+    cout << "The Smallest value in the tree is: " << findMinRecursive(root) << endl;
+    cout << "The Largest value in the tree is: " << findMaxRecursive(root) << endl;
+
+    cout << "The Max Root to Leaf Sum is: " << maxRoottoLeafSum(root) << endl;
+    cout << "The Min Root to Leaf Sum is: " << minRoottoLeafSum(root) << endl;
 }
