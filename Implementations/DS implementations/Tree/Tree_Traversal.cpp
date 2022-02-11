@@ -3,8 +3,8 @@
 // #define MAX = 1e7+10;
 using namespace std;
 
-int MIN = 1e-7;
-int MAX = 1e7;
+int MIN = INT_MIN;
+int MAX = INT_MAX;
 
 vector<int> result;
 
@@ -190,31 +190,50 @@ int findMin(Node *root)
     return minvalue;
 }
 
-int maxRoottoLeafSum(Node *root){
-    if (root == NULL) return MIN;
-    if(root->left == NULL && root->right == NULL) return root->data;
+int maxRoottoLeafSum(Node *root)
+{
+    if (root == NULL)
+        return MIN + 1000;
+    if (root->left == NULL && root->right == NULL)
+        return root->data;
 
     return max(maxRoottoLeafSum(root->left) + root->data, maxRoottoLeafSum(root->right) + root->data);
 }
 
-int minRoottoLeafSum(Node *root){
-    if (root == NULL) return MAX;
-    if(root->left == NULL && root->right == NULL) return root->data;
+int minRoottoLeafSum(Node *root)
+{
+    if (root == NULL)
+        return MAX - 1000;
+    if (root->left == NULL && root->right == NULL)
+        return root->data;
 
     return min(minRoottoLeafSum(root->left) + root->data, minRoottoLeafSum(root->right) + root->data);
 }
 
+int maxRoottoLeaf(Node *root)
+{
+    if (root == NULL)
+        return MAX - 1000;
+    if (root->left == NULL && root->right == NULL)
+        return root->data;
+    
+    stack<Node *> stack;
+    stack.push(root);
 
+    while(!stack.empty()){
+        
+    }
+}
 
 int main()
 {
-    Node *root = new Node(1); // root
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    // Node *root = new Node(1); // root
+    // root->left = new Node(2);
+    // root->right = new Node(3);
+    // root->left->left = new Node(4);
+    // root->left->right = new Node(5);
+    // root->right->left = new Node(6);
+    // root->right->right = new Node(7);
     // int e = new Node(5);
     /*
          1
@@ -223,6 +242,29 @@ int main()
       / \ / \
      4  5 6  7
     */
+
+    /* Construct the following tree
+               1
+             /   \
+            /     \
+           2       3
+          / \     / \
+         8   4   5   6
+            /   / \   \
+          10   7   9   5
+     */
+
+    Node *root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(8);
+    root->left->right = new Node(4);
+    root->right->left = new Node(5);
+    root->right->right = new Node(6);
+    root->left->right->left = new Node(10);
+    root->right->left->left = new Node(7);
+    root->right->left->right = new Node(9);
+    root->right->right->right = new Node(5);
 
     cout << "\nDepth First traversal of binary tree is \n";
     DFT(root);
