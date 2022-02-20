@@ -29,7 +29,7 @@ public:
 
     void BFS(int start)
     {
-        list<int> queue;
+        list<int> queue; // list behaving like a queue
 
         visited[start] = true;
         queue.push_back(start);
@@ -58,7 +58,7 @@ public:
     {
         reset();
 
-        list<int> stack;
+        list<int> stack; // list behaving like a stack
 
         visited[start] = true;
         stack.push_front(start);
@@ -95,6 +95,86 @@ public:
                 DFSRecursive(*i);
         }
     }
+
+    bool hasPathRecursive(int src, int dest)
+    {
+        visited[src] = true;
+        if (src == dest)
+            return true;
+
+        list<int>::iterator i;
+
+        for (i = adj[src].begin(); i != adj[src].end(); i++)
+        {
+            if (!visited[*i])
+                if (hasPathRecursive(*i, dest))
+                    return true;
+        }
+        return false;
+    }
+
+    bool hasPath(int src, int dest)
+    {
+        reset();
+
+        list<int> stack; // list behaving like a stack
+
+        visited[src] = true;
+        if (src == dest)
+            return true;
+        stack.push_front(src);
+
+        list<int>::iterator i;
+
+        while (!stack.empty())
+        {
+            src = stack.front();
+            if (src == dest)
+                return true;
+            stack.pop_front();
+
+            for (i = adj[src].begin(); i != adj[src].end(); i++)
+            {
+                if (!visited[*i])
+                {
+                    visited[*i] = true;
+                    stack.push_front(*i);
+                }
+            }
+        }
+        return false;
+    }
+
+    bool hasPathBFS(int src, int dest)
+    {
+        reset();
+        list<int> queue; // list behaving like a queue
+
+        visited[src] = true;
+        if (src == dest)
+            return true;
+        queue.push_back(src);
+
+        list<int>::iterator i;
+
+        while (!queue.empty())
+        {
+            src = queue.front();
+            queue.pop_front();
+            if (src == dest)
+                return true;
+
+            for (i = adj[src].begin(); i != adj[src].end(); i++)
+            {
+                if (!visited[*i])
+                {
+                    visited[*i] = true;
+                    queue.push_back(*i);
+                }
+            }
+        }
+        return false;
+    }
 };
 
 int main()
@@ -115,6 +195,11 @@ int main()
     g.addEdge(2, 3);
     g.addEdge(3, 3);
 
+    // 0 ------> 1
+    //           |
+    //           |
+    // 2         2
+
     cout << "Following is Breadth First Traversal (starting from vertex 2) \n";
     g.BFS(2);
     cout << endl;
@@ -126,6 +211,21 @@ int main()
     cout << "Following is Depth First Traversal (Recursive) (starting from vertex 2) \n";
     g.DFSRecursive(2);
     cout << endl;
+
+    g.reset();
+    cout << "Path exists between 2 to 3: " << g.hasPathRecursive(2, 3) << endl;
+    cout << "Path exists between 3 to 2: " << g.hasPathRecursive(3, 2) << endl;
+    cout << "Path exists between 3 to 3: " << g.hasPathRecursive(3, 3) << endl;
+
+    cout << "Path exists between 2 to 3: " << g.hasPath(2, 3) << endl;
+    cout << "Path exists between 3 to 2: " << g.hasPath(3, 2) << endl;
+    cout << "Path exists between 3 to 3: " << g.hasPath(3, 3) << endl;
+
+    cout << "Path exists between 2 to 3: " << g.hasPathBFS(2, 3) << endl;
+    cout << "Path exists between 3 to 2: " << g.hasPathBFS(3, 2) << endl;
+    cout << "Path exists between 3 to 3: " << g.hasPathBFS(3, 3) << endl;
+
+    
 
     return 0;
 }
