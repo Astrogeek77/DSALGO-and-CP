@@ -150,6 +150,7 @@ void iterativeInorder(Tnode *node)
 
 void IterativePostorder(Tnode *node)
 {
+    // left right root
     if (node == NULL)
         return;
 

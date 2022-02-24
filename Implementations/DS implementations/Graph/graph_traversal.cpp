@@ -175,6 +175,38 @@ public:
         }
         return false;
     }
+
+    int shortestPathBFS(int src, int dest)
+    {
+        reset();
+        list<int> queue; // list behaving like a queue
+
+        visited[src] = true;
+        if (src == dest)
+            return 0;
+        queue.push_back(src);
+        int count = 0;
+
+        list<int>::iterator i;
+
+        while (!queue.empty())
+        {
+            src = queue.front();
+            queue.pop_front();
+            for (i = adj[src].begin(); i != adj[src].end(); i++)
+            {
+                if (*i == dest)
+                    return count;
+                if (!visited[*i])
+                {
+                    visited[*i] = true;
+                    queue.push_back(*i);
+                    count++;
+                }
+            }
+        }
+        return -1;
+    }
 };
 
 int main()
@@ -225,7 +257,9 @@ int main()
     cout << "Path exists between 3 to 2: " << g.hasPathBFS(3, 2) << endl;
     cout << "Path exists between 3 to 3: " << g.hasPathBFS(3, 3) << endl;
 
-    
+    cout << "Shortest Path edges from 0 to 2: " << g.shortestPathBFS(0, 2) << endl;
+    cout << "Shortest Path edges from 3 to 1: " << g.shortestPathBFS(3, 1) << endl;
+    cout << "Shortest Path edges from 3 to 3: " << g.shortestPathBFS(3, 3) << endl;
 
     return 0;
 }

@@ -4,8 +4,6 @@
 // All nodes of right subtree are more than the root node
 // Both subtrees of each node are also BSTs i.e. they have the above two properties
 
-
-
 #include <bits/stdc++.h>
 #include <iostream>
 using namespace std;
@@ -114,21 +112,26 @@ public:
         return node;
     }
 
-    BST* BSTfromPreorder(vector<int> preorder){
+    BST *BSTfromPreorder(vector<int> preorder)
+    {
         int size = preorder.size();
 
-        if(size == 0) return NULL;
-        BST* root = NULL;
+        if (size == 0)
+            return NULL;
+        BST *root = NULL;
 
-        for(auto x: preorder) {
+        for (auto x : preorder)
+        {
             root = insert(root, x);
         }
         return root;
     }
 
-    bool checkBST(BST* root, int min, int max){
+    bool checkBST(BST *root, int min, int max)
+    {
         int d = root->data;
-        if(root == NULL) return true;
+        if (root == NULL)
+            return true;
         // BST *temp = new BST;
         // temp = root;
         // bool isBST = true;
@@ -146,11 +149,75 @@ public:
         //     }
         // }
 
-        if (root->data < max || root->data > min){
+        if (root->data < max || root->data > min)
+        {
             return false;
         }
-        
+
         return checkBST(root->left, min, d - 1) && checkBST(root->right, d + 1, max);
+    }
+
+    BST *deleteNodeIterative(BST *root, int key)
+    {
+        if (root == NULL)
+            return NULL;
+        if (root->data == key)
+            return helper(root);
+        BST *temp = root;
+
+        while (root != NULL)
+        {
+            if (root->data > key)
+            {
+                if (root->left != NULL and root->left->data == key)
+                {
+                    root->left = helper(root->left);
+                    break;
+                }
+                else
+                {
+                    root = root->left;
+                }
+            }
+            else
+            {
+                if (root->right != NULL and root->right->data == key)
+                {
+                    root->right = helper(root->right);
+                    break;
+                }
+                else
+                {
+                    root = root->right;
+                }
+            }
+        }
+        return temp;
+    }
+
+    BST *helper(BST *root)
+    {
+        if (root->left == NULL)
+        {
+            return root->right;
+        }
+        if (root->right == NULL)
+        {
+            return root->left;
+        }
+        BST *rightChild = root->right;
+        BST *lastRight = findLastRight(root->left);
+        lastRight->right = rightChild;
+        return root->left;
+    }
+
+    BST *findLastRight(BST *root)
+    {
+        if (root->right == NULL)
+        {
+            return root;
+        }
+        return findLastRight(root->right);
     }
 };
 
@@ -168,9 +235,9 @@ int main()
     b.insert(root, 10);
     b.insert(root, 5);
 
-    // cout << "Inorder Traversal: ";
-    // b.inorder(root);
-    // cout << endl;
+    cout << "Inorder Traversal: ";
+    b.inorder(root);
+    cout << endl;
 
     // int key = 40;
     // if (b.search(root, key) == -1)
@@ -180,19 +247,19 @@ int main()
 
     // cout << "minValueNode: " << (b.minValueNode(root))->data << endl;
 
-    // int key2 = 30;
-    // cout << "delete " << key2 << endl;
-    // root = b.deleteNode(root, key2);
-    // cout << "Inorder Traversal: ";
-    // b.inorder(root);
-    // cout << endl;
+    int key2 = 30;
+    cout << "delete " << key2 << endl;
+    root = b.deleteNode(root, key2);
+    cout << "Inorder Traversal: ";
+    b.inorder(root);
+    cout << endl;
 
-    // int key3 = 5;
-    // cout << "delete " << key3 << endl;
-    // root = b.deleteNode(root, key3);
-    // cout << "Inorder Traversal: ";
-    // b.inorder(root);
-    // cout << endl;
+    int key3 = 5;
+    cout << "delete " << key3 << endl;
+    root = b.deleteNodeIterative(root, key3);
+    cout << "Inorder Traversal: ";
+    b.inorder(root);
+    cout << endl;
 
     // BST from Preorder
 
@@ -203,11 +270,10 @@ int main()
     // b.inorder(root2);
 
     bool isBST = b.checkBST(root, INT_MIN, INT_MAX);
-    cout<<((isBST == true) ? "YES" : "NO");
+    cout << ((isBST == true) ? "YES" : "NO");
 
     return 0;
 }
-
 
 // Binary Search Tree Complexities
 // Time Complexity
