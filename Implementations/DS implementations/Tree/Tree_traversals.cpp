@@ -103,6 +103,10 @@ void printLevelOrderTraversal(Tnode *node)
 void iterativePreorder(Tnode *node)
 {
     // root left right
+
+    // we traverse through and simultaneously print the node we push to stack, 
+    // we push right before left so that left comes out first
+
     if (node == NULL)
         return;
 
@@ -126,6 +130,10 @@ void iterativePreorder(Tnode *node)
 void iterativeInorder(Tnode *node)
 {
     // left root right
+
+    // we traverse through left until node->left becomes null and then print the last node,
+    //  its parent and move to its right
+
     if (node == NULL)
         return;
 
@@ -151,6 +159,11 @@ void iterativeInorder(Tnode *node)
 void IterativePostorder(Tnode *node)
 {
     // left right root
+
+    // we traverse using two stacks here we push the root to stack1 and then its left and right children and 
+    // pop the stack1 top and push it to stack 2, continuing this process we get a post order traversal when pop 
+    // elements in LIFO fashion from stack2
+
     if (node == NULL)
         return;
 
@@ -178,6 +191,43 @@ void IterativePostorder(Tnode *node)
         temp = stack2.top();
         stack2.pop();
         cout << temp->data << " ";
+    }
+}
+
+void IterativePostorder2(Tnode *node){
+    // left right root
+    // using 1 stack only
+
+    // we traverse throught the nodes and go as left as posible then look for right child
+    // next we reapeat the above step on the right child
+    // once right child of a node is null we print node and check if its parents and print them
+    // continuing these steps we get the post order traversal
+
+    if(node == NULL) return;
+
+    stack<Tnode *> st;
+    st.push(node);
+
+    Tnode *current = node;
+
+    while(!st.empty() && current != NULL){
+        while(current != NULL){
+            st.push(current);
+            current = current->left;
+        }
+
+        Tnode *temp = st.top()->right;
+        if(temp == NULL){
+            temp = st.top();
+            st.pop();
+            cout << temp->data << ", ";
+            while(!st.empty() && temp == st.top()->right){
+                temp = st.top();
+                st.pop();
+                cout << temp->data << ", ";
+            }
+        }
+        else current = temp;
     }
 }
 
