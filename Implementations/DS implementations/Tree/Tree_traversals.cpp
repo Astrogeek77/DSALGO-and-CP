@@ -104,7 +104,7 @@ void iterativePreorder(Tnode *node)
 {
     // root left right
 
-    // we traverse through and simultaneously print the node we push to stack, 
+    // we traverse through and simultaneously print the node we push to stack,
     // we push right before left so that left comes out first
 
     if (node == NULL)
@@ -159,9 +159,10 @@ void iterativeInorder(Tnode *node)
 void IterativePostorder(Tnode *node)
 {
     // left right root
+    // using 2 stacks
 
-    // we traverse using two stacks here we push the root to stack1 and then its left and right children and 
-    // pop the stack1 top and push it to stack 2, continuing this process we get a post order traversal when pop 
+    // we traverse using two stacks here we push the root to stack1 and then its left and right children and
+    // pop the stack1 top and push it to stack 2, continuing this process we get a post order traversal when pop
     // elements in LIFO fashion from stack2
 
     if (node == NULL)
@@ -194,7 +195,8 @@ void IterativePostorder(Tnode *node)
     }
 }
 
-void IterativePostorder2(Tnode *node){
+void IterativePostorder2(Tnode *node)
+{
     // left right root
     // using 1 stack only
 
@@ -203,32 +205,102 @@ void IterativePostorder2(Tnode *node){
     // once right child of a node is null we print node and check if its parents and print them
     // continuing these steps we get the post order traversal
 
-    if(node == NULL) return;
+    if (node == NULL)
+        return;
 
     stack<Tnode *> st;
-    st.push(node);
+    // st.push(node);
 
     Tnode *current = node;
 
-    while(!st.empty() && current != NULL){
-        while(current != NULL){
+    while (!st.empty() || current != NULL)
+    {
+        if (current != NULL)
+        {
             st.push(current);
             current = current->left;
         }
-
-        Tnode *temp = st.top()->right;
-        if(temp == NULL){
-            temp = st.top();
-            st.pop();
-            cout << temp->data << ", ";
-            while(!st.empty() && temp == st.top()->right){
+        else
+        {
+            Tnode *temp = st.top()->right;
+            if (temp == NULL)
+            {
                 temp = st.top();
                 st.pop();
-                cout << temp->data << ", ";
+                cout << temp->data << " ";
+                while (!st.empty() && temp == st.top()->right)
+                {
+                    temp = st.top();
+                    st.pop();
+                    cout << temp->data << " ";
+                }
             }
+            else
+                current = temp;
         }
-        else current = temp;
     }
+}
+
+void printVector(vector<int> v)
+{
+    for (auto x : v)
+    {
+        cout << x << " ";
+    }
+    cout << endl;
+}
+
+void allTraversals(Tnode *node)
+{
+    // three vectors storing the respective pre post and in order traversals
+    vector<int> pre, in, post;
+
+    // base case
+    if (node == NULL)
+        return;
+
+    // we push to stack node along with a number which signifies which vector to push into
+    stack<pair<Tnode *, int>> st;
+    st.push({node, 1});
+
+    // while stack is not empty do this
+    while (!st.empty())
+    {
+        auto it = st.top();
+        st.pop();
+        // case 1 : num == 1 := push to preorder, increment the num and insert left child if exists
+        if (it.second == 1)
+        {
+            pre.push_back(it.first->data);
+            it.second++;
+            st.push(it);
+
+            if (it.first->left != NULL)
+                st.push({it.first->left, 1});
+        }
+        // case 2: num == 2 := push to inorder, increment the num and insert right child if exists
+        else if (it.second == 2)
+        {
+            in.push_back(it.first->data);
+            it.second++;
+            st.push(it);
+
+            if (it.first->right != NULL)
+                st.push({it.first->right, 1});
+        }
+        //  case 3: num == 3 := just push to postorder only
+        else
+        {
+            post.push_back(it.first->data);
+        }
+    }
+    // printing the three vectors
+    cout << "Preorder Traversal" << endl;
+    printVector(pre);
+    cout << "Inorder Traversal" << endl;
+    printVector(in);
+    cout << "Postorder Traversal" << endl;
+    printVector(post);
 }
 
 int IterativeCalcHeight(Tnode *node)
@@ -308,11 +380,11 @@ int main()
     // cout << "\nIterative Inorder traversal of binary tree is \n";
     // iterativeInorder(root);
 
-    cout << "\nIterative Postorder traversal (using 2 stacks) of binary tree is \n";
-    IterativePostorder(root);
+    // cout << "\nIterative Postorder traversal (using 2 stacks) of binary tree is \n";
+    // IterativePostorder(root);
 
-    cout << "\nIterative Postorder traversal (using 1 stack) of binary tree is \n";
-    IterativePostorder(root);
+    // cout << "\nIterative Postorder traversal (using 1 stack) of binary tree is \n";
+    // IterativePostorder2(root);
 
     // cout << "\nLevel Order traversal of binary tree is \n";
     // printLevelOrderTraversal(root);
@@ -327,6 +399,8 @@ int main()
 
     // cout << "\nCalc Depth of the Tree is: ";
     // cout << maxDepth(root) << endl;
+
+    allTraversals(root);
 
     return 0;
 }
