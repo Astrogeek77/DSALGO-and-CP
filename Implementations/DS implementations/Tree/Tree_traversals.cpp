@@ -310,13 +310,13 @@ int IterativeCalcHeight(Tnode *node)
 
     queue<Tnode *> queue;
     int height = 0;
-    int nodeCount = 0;
+    int nodeCount;
     Tnode *current;
 
     queue.push(node);
     while (!queue.empty())
     {
-        int nodeCount = queue.size();
+        nodeCount = queue.size();
         height++;
 
         while (nodeCount--)
@@ -332,6 +332,27 @@ int IterativeCalcHeight(Tnode *node)
         }
     }
     return height;
+}
+
+int calcHeight(Tnode *node)
+{
+    if (node == NULL)
+        return 0;
+    int lh = calcHeight(node->left);
+    if (lh == -1)
+        return -1;
+    int rh = calcHeight(node->right);
+    if (rh == -1)
+        return -1;
+
+    if (abs(lh - rh) > 1)
+        return -1;
+    return max(lh, rh) + 1;
+}
+
+bool isBalanced(Tnode *node)
+{
+    return (calcHeight(node) != -1);
 }
 
 int maxDepth(Tnode *node)
@@ -353,15 +374,64 @@ int maxDepth(Tnode *node)
     // return (max(leftDepth, rightDepth) + 1);
 }
 
+int maxDiameter(Tnode *node, int &d)
+{
+    if (node == NULL)
+        return 0;
+    int lh = maxDiameter(node->left, d);
+    int rh = maxDiameter(node->right, d);
+    d = max(d, lh + rh);
+    return (1 + max(lh, rh));
+}
+
+int maxPathSum(Tnode *node, int &maxi)
+{
+    if (node == NULL)
+        return 0;
+    int lh = max(0, maxPathSum(node->left, maxi));
+    int rh = max(0, maxPathSum(node->right, maxi));
+    maxi = max(maxi, lh + rh + node->data);
+    return max(lh, rh) + node->data;
+}
+
+bool isSameTree(Tnode *node1, Tnode *node2)
+{
+    if (!node1)
+        return !node2;
+    if (!node2)
+        return !node1;
+    return (node1->data == node2->data) && (isSameTree(node1->left, node2->left)) && (isSameTree(node1->right, node2->right));
+}
+
+
+
 int main()
 {
     Tnode *root = new Tnode(7);
     root->left = new Tnode(9);
     root->right = new Tnode(10);
     root->left->left = new Tnode(3);
-    root->left->right = new Tnode(4);
+    root->left->right = new Tnode(6);
+    root->left->left->left = new Tnode(4);
     root->right->left = new Tnode(2);
     root->right->right = new Tnode(8);
+
+    //          7
+    //        /   \
+    //       9     10
+    //      / \    / \
+    //     3   6  2   8
+    //    /
+    //   4
+
+    Tnode *root2 = new Tnode(7);
+    root2->left = new Tnode(9);
+    root2->right = new Tnode(10);
+    root2->left->left = new Tnode(3);
+    root2->left->right = new Tnode(6);
+    // root2->left->left->left = new Tnode(4);
+    root2->right->left = new Tnode(2);
+    root2->right->right = new Tnode(8);
 
     // Traversals
 
@@ -401,6 +471,18 @@ int main()
     // cout << maxDepth(root) << endl;
 
     allTraversals(root);
+
+    cout << "Tree is Balanced: " << isBalanced(root) << endl;
+
+    int d = 0;
+    maxDiameter(root, d);
+    cout << "Tree Diameter: " << d << endl;
+
+    int maxi = 0;
+    maxPathSum(root, maxi);
+    cout << "Tree Max Path Sum: " << maxi << endl;
+
+    cout << "is Tree same : " << isSameTree(root, root2) << endl;
 
     return 0;
 }
