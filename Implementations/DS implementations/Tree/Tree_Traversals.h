@@ -1,20 +1,3 @@
-#include <bits/stdc++.h>
-#include <iostream>
-using namespace std;
-
-class Tnode
-{
-public:
-    int data;
-    Tnode *left;
-    Tnode *right;
-    Tnode(int data)
-    {
-        this->data = data;
-        left = right = NULL;
-    }
-};
-
 void printPreorder(Tnode *node)
 {
     // root left right
@@ -303,104 +286,63 @@ void allTraversals(Tnode *node)
     printVector(post);
 }
 
-int IterativeCalcHeight(Tnode *node)
+void BFT(Tnode *root)
 {
-    if (node == NULL)
-        return 0;
+    // level by level
+    if (root == NULL)
+        return;
 
     queue<Tnode *> queue;
-    int height = 0;
-    int nodeCount;
-    Tnode *current;
+    queue.push(root);
 
-    queue.push(node);
     while (!queue.empty())
     {
-        nodeCount = queue.size();
-        height++;
+        Tnode *current = queue.front();
+        cout << current->data << ", ";
 
-        while (nodeCount--)
-        {
-            current = queue.front();
+        if (current->left)
+            queue.push(current->left);
+        if (current->right)
+            queue.push(current->right);
 
-            if (current->left != NULL)
-                queue.push(current->left);
-            if (current->right != NULL)
-                queue.push(current->right);
-
-            queue.pop();
-        }
+        queue.pop();
     }
-    return height;
 }
 
-int calcHeight(Tnode *node)
+void DFTRecursive(Tnode *root)
 {
-    if (node == NULL)
-        return 0;
-    int lh = calcHeight(node->left);
-    if (lh == -1)
-        return -1;
-    int rh = calcHeight(node->right);
-    if (rh == -1)
-        return -1;
+    // root left right
+    if (root == NULL)
+        return;
 
-    if (abs(lh - rh) > 1)
-        return -1;
-    return max(lh, rh) + 1;
+    cout << root->data << ", ";
+    DFTRecursive(root->left);
+    DFTRecursive(root->right);
 }
 
-bool isBalanced(Tnode *node)
+void DFT(Tnode *root)
 {
-    return (calcHeight(node) != -1);
-}
+    // root left right
+    // Preorder Traversal
 
-int maxDepth(Tnode *node)
-{
-    if (node == NULL)
-        return 0;
-    else
+    if (root == NULL)
+        return;
+
+    stack<Tnode *> stack;
+    stack.push(root);
+
+    while (stack.empty() == false)
     {
-        int leftDepth = maxDepth(node->left);
-        int rightDepth = maxDepth(node->right);
+        Tnode *current = stack.top();
+        // result.push_back(current->data);
+        cout << current->data << ", ";
+        stack.pop();
 
-        if (leftDepth < rightDepth)
-            return (leftDepth + 1);
-        else
-            return (rightDepth + 1);
-
-        // cout << leftDepth << rightDepth << endl;
+        if (current->right)
+            stack.push(current->right);
+        if (current->left)
+            stack.push(current->left);
     }
-    // return (max(leftDepth, rightDepth) + 1);
-}
-
-int maxDiameter(Tnode *node, int &d)
-{
-    if (node == NULL)
-        return 0;
-    int lh = maxDiameter(node->left, d);
-    int rh = maxDiameter(node->right, d);
-    d = max(d, lh + rh);
-    return (1 + max(lh, rh));
-}
-
-int maxPathSum(Tnode *node, int &maxi)
-{
-    if (node == NULL)
-        return 0;
-    int lh = max(0, maxPathSum(node->left, maxi));
-    int rh = max(0, maxPathSum(node->right, maxi));
-    maxi = max(maxi, lh + rh + node->data);
-    return max(lh, rh) + node->data;
-}
-
-bool isSameTree(Tnode *node1, Tnode *node2)
-{
-    if (!node1)
-        return !node2;
-    if (!node2)
-        return !node1;
-    return (node1->data == node2->data) && (isSameTree(node1->left, node2->left)) && (isSameTree(node1->right, node2->right));
 }
 
 void zigzagTraversal(Tnode *node)
@@ -477,86 +419,69 @@ void zigzagTraversal(Tnode *node)
     printVector(v);
 }
 
-int main()
+bool checkLeaf(Tnode *node)
 {
-    Tnode *root = new Tnode(7);
-    root->left = new Tnode(9);
-    root->right = new Tnode(10);
-    root->left->left = new Tnode(3);
-    // root->left->right = new Tnode(6);
-    root->left->left->left = new Tnode(4);
-    root->right->left = new Tnode(2);
-    root->right->right = new Tnode(8);
+    return (!(node->left) && !(node->right));
+}
 
-    //          7
-    //        /   \
-    //       9     10
-    //      / \    / \
-    //     3   6  2   8
-    //    /
-    //   4
+void printLeftBoundary(Tnode *node)
+{
+    if (node == NULL)
+        return;
+    if (node->left)
+    {
+        cout << node->data << " ";
+        printLeftBoundary(node->left);
+    }
+    else if (node->right)
+    {
+        cout << node->data << " ";
+        printLeftBoundary(node->left);
+    }
+}
 
-    Tnode *root2 = new Tnode(7);
-    root2->left = new Tnode(9);
-    root2->right = new Tnode(10);
-    root2->left->left = new Tnode(3);
-    root2->left->right = new Tnode(6);
-    // root2->left->left->left = new Tnode(4);
-    root2->right->left = new Tnode(2);
-    root2->right->right = new Tnode(8);
+void printLeaves(Tnode *node)
+{
+    if (node == NULL)
+        return;
+    printLeaves(node->left);
+    if (checkLeaf(node))
+        cout << node->data << " ";
+    printLeaves(node->right);
+}
 
-    // Traversals
+void printRightBoundary(Tnode *node)
+{
+    if (node == NULL)
+        return;
+    if (node->right)
+    {
+        printRightBoundary(node->right);
+        cout << node->data << " ";
+    }
+    else if (node->left)
+    {
+        printRightBoundary(node->left);
+        cout << node->data << " ";
+    }
+}
 
-    // cout << "\nPreorder traversal of binary tree is \n";
-    // printPreorder(root);
+void boundaryTraversal(Tnode *node)
+{
+    // base cases
+    if (node == NULL)
+        return;
 
-    // cout << "\nInorder traversal of binary tree is \n";
-    // printInorder(root);
+    // anticlockwise traversal
+    cout << node->data << " ";
 
-    // cout << "\nPostorder traversal of binary tree is \n";
-    // printPostorder(root);
+    // traverse the left boundary nodes excluding the leaf nodes
+    printLeftBoundary(node->left);
 
-    // cout << "\nIterative Preorder traversal of binary tree is \n";
-    // iterativePreorder(root);
+    // traverse the leaf nodes using a inorder traversal
+    printLeaves(node->left);
+    printLeaves(node->right);
 
-    // cout << "\nIterative Inorder traversal of binary tree is \n";
-    // iterativeInorder(root);
-
-    // cout << "\nIterative Postorder traversal (using 2 stacks) of binary tree is \n";
-    // IterativePostorder(root);
-
-    // cout << "\nIterative Postorder traversal (using 1 stack) of binary tree is \n";
-    // IterativePostorder2(root);
-
-    // cout << "\nLevel Order traversal of binary tree is \n";
-    // printLevelOrderTraversal(root);
-
-    // cout << "\nIterative Level Order traversal of binary tree is \n";
-    // printLevelorder(root);
-
-    // Operations
-
-    // cout << "\nIterative Calc Height of the Tree is: ";
-    // cout << IterativeCalcHeight(root) << endl;
-
-    // cout << "\nCalc Depth of the Tree is: ";
-    // cout << maxDepth(root) << endl;
-
-    // allTraversals(root);
-
-    cout << "Tree is Balanced: " << isBalanced(root) << endl;
-
-    int d = 0;
-    maxDiameter(root, d);
-    cout << "Tree Diameter: " << d << endl;
-
-    int maxi = 0;
-    maxPathSum(root, maxi);
-    cout << "Tree Max Path Sum: " << maxi << endl;
-
-    cout << "is Tree same : " << isSameTree(root, root2) << endl;
-
-    zigzagTraversal(root);
-
-    return 0;
+    // traverse the right boundary nodes excluding the leaf nodes from bottom to up
+    printRightBoundary(node->right);
 }
