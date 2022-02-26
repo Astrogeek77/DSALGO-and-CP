@@ -403,7 +403,79 @@ bool isSameTree(Tnode *node1, Tnode *node2)
     return (node1->data == node2->data) && (isSameTree(node1->left, node2->left)) && (isSameTree(node1->right, node2->right));
 }
 
+void zigzagTraversal(Tnode *node)
+{
+    // check base cases
+    if (node == NULL)
+        return;
 
+    // use a queue for traversing the tree(basically level order)
+    deque<Tnode *> queue;
+    // push root to queue
+    queue.push_back(node);
+
+    // vector to store the traversal
+    vector<int> v;
+
+    v.push_back(node->data);
+
+    Tnode *current;
+    int l = 1;
+
+    // until queue is not empty do this
+    while (!queue.empty())
+    {
+        // tells how many elements are there in a level
+        int size = queue.size();
+        // cout << "Size :" << size << endl;
+
+        for (int i = 0; i < size; i++) // runs for all elements in the level
+        {
+            // logic to reverse the order after every level
+            if (l % 2 == 0)
+            {
+                current = queue.back();
+                queue.pop_back();
+            }
+            else
+            {
+                current = queue.front();
+                queue.pop_front();
+            }
+
+            if (l % 2 != 0)
+            {
+                if (current->right)
+                {
+                    queue.push_back(current->right);
+                    v.push_back(current->right->data);
+                }
+                if (current->left)
+                {
+                    queue.push_back(current->left);
+                    v.push_back(current->left->data);
+                }
+            }
+            else
+            {
+                if (current->left)
+                {
+                    queue.push_front(current->left);
+                    v.push_back(current->left->data);
+                }
+                if (current->right)
+                {
+                    queue.push_front(current->right);
+                    v.push_back(current->right->data);
+                }
+            }
+        }
+        l++;
+    }
+
+    cout << "Zig Zag Traversal:" << endl;
+    printVector(v);
+}
 
 int main()
 {
@@ -411,7 +483,7 @@ int main()
     root->left = new Tnode(9);
     root->right = new Tnode(10);
     root->left->left = new Tnode(3);
-    root->left->right = new Tnode(6);
+    // root->left->right = new Tnode(6);
     root->left->left->left = new Tnode(4);
     root->right->left = new Tnode(2);
     root->right->right = new Tnode(8);
@@ -470,7 +542,7 @@ int main()
     // cout << "\nCalc Depth of the Tree is: ";
     // cout << maxDepth(root) << endl;
 
-    allTraversals(root);
+    // allTraversals(root);
 
     cout << "Tree is Balanced: " << isBalanced(root) << endl;
 
@@ -483,6 +555,8 @@ int main()
     cout << "Tree Max Path Sum: " << maxi << endl;
 
     cout << "is Tree same : " << isSameTree(root, root2) << endl;
+
+    zigzagTraversal(root);
 
     return 0;
 }
