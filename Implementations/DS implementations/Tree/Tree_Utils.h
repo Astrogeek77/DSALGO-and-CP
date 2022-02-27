@@ -141,12 +141,12 @@ int minRoottoLeafSum(Tnode *root)
 //         return MAX - 1000;
 //     if (root->left == NULL && root->right == NULL)
 //         return root->data;
-    
+
 //     stack<Tnode *> stack;
 //     stack.push(root);
 
 //     while(!stack.empty()){
-        
+
 //     }
 // }
 
@@ -248,4 +248,133 @@ int IterativeCalcHeight(Tnode *node)
         }
     }
     return height;
+}
+
+void topView(Tnode *node)
+{
+    // base cases
+    if (node == NULL)
+        return;
+
+    // a map to store the vertical line and data
+    map<int, int> m;
+
+    // queue to store the current line and the node
+    queue<pair<Tnode *, int>> q;
+
+    // push the root of tree to the queue
+    q.push({node, 0});
+
+    // cout << "Starting line " << endl;
+
+    cout << "Top View of Tree" << endl;
+
+    while (!q.empty())
+    {
+        auto it = q.front();
+        // cout << it.first << " " << it.second << endl;
+        q.pop();
+
+        Tnode *curr = it.first; // current node
+        int line = it.second;   // the current vertical line
+
+        // cout << line << endl;
+
+        if (m.find(line) == m.end())
+            m[line] = curr->data;
+
+        if (curr->left)
+        {
+            q.push({curr->left, line - 1});
+        }
+
+        if (curr->right)
+        {
+            q.push({curr->right, line + 1});
+        }
+    }
+
+    // print the topView
+    for (auto x : m)
+    {
+        // cout << "log" << endl;
+        cout << x.second << " ";
+    }
+    cout << endl;
+}
+
+void bottomView(Tnode *node)
+{
+    // base cases
+    if (node == NULL)
+        return;
+
+    // a map to store the vertical line and data
+    map<int, int> m;
+
+    // queue to store the current line and the node
+    queue<pair<Tnode *, int>> q;
+
+    // push the root of tree to the queue
+    q.push({node, 0});
+
+    // cout << "Starting line " << endl;
+    cout << "Bottom View of Tree" << endl;
+
+    while (!q.empty())
+    {
+        auto it = q.front();
+        // cout << it.first << " " << it.second << endl;
+        q.pop();
+
+        Tnode *curr = it.first; // current node
+        int line = it.second;   // the current vertical line
+
+        // cout << line << endl;
+
+        m[line] = curr->data;
+
+        if (curr->left)
+        {
+            q.push({curr->left, line - 1});
+        }
+
+        if (curr->right)
+        {
+            q.push({curr->right, line + 1});
+        }
+    }
+
+    // print the bottomView
+    for (auto x : m)
+    {
+        // cout << "log" << endl;
+        cout << x.second << " ";
+    }
+    cout << endl;
+}
+
+void rightView(Tnode *node){
+    // base cases
+    if(node == NULL)
+        return;
+    
+    // map to store horizontal line and the current node
+    map<int, int> m;
+
+    // queue to store current level line and Nodes
+    queue<pair<Tnode *, int>> queue;
+
+    // push root to the queue
+    queue.push({node, 1});
+
+    while(!queue.empty()){
+        auto it = queue.front();
+        queue.pop();
+
+        Tnode *curr = it.first;
+        int level = it.second;
+
+        
+    }
 }

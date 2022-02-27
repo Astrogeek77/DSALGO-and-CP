@@ -430,6 +430,7 @@ void printLeftBoundary(Tnode *node)
         return;
     if (node->left)
     {
+        // printing first to get top to down print
         cout << node->data << " ";
         printLeftBoundary(node->left);
     }
@@ -456,6 +457,7 @@ void printRightBoundary(Tnode *node)
         return;
     if (node->right)
     {
+        // printing second to get bottom to up print
         printRightBoundary(node->right);
         cout << node->data << " ";
     }
@@ -484,4 +486,53 @@ void boundaryTraversal(Tnode *node)
 
     // traverse the right boundary nodes excluding the leaf nodes from bottom to up
     printRightBoundary(node->right);
+
+    cout << endl;
+}
+
+void verticalTraversal(Tnode *node)
+{
+    // base cases
+    if (node == NULL)
+        return;
+
+    // using a map to get record
+    map<int, map<int, multiset<int>>> nodes; // storing coordinates with the respective nodes
+
+    // using a queue structure
+    queue<pair<Tnode *, pair<int, int>>> queue; // storing coordinates wih respective nodes in the queue
+
+    queue.push({node, {0, 0}}); // doing a level order traversal
+
+    while (!queue.empty())
+    {
+        auto it = queue.front();
+        queue.pop();
+        Tnode *temp = it.first;
+        int x = it.second.first;
+        int y = it.second.second;
+        nodes[x][y].insert(temp->data);
+        if (temp->left)
+        {
+            // when going to left child we go a step back horizontally and one step forward vertically
+            queue.push({temp->left, {x - 1, y + 1}});
+        }
+        if (temp->right)
+        {
+            // when going to right child we go a step forward horizontally and one step forward vertically
+            queue.push({temp->right, {x + 1, y + 1}});
+        }
+    }
+    // vector<vector<int>> ans;
+    for (auto p : nodes)
+    {
+        vector<int> col;
+        for (auto q : p.second)
+        {
+            col.insert(col.end(), q.second.begin(), q.second.end());
+        }
+        printVector(col);
+        // cout << endl;
+    }
+    // return ans;
 }
