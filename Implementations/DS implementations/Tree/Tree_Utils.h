@@ -354,27 +354,108 @@ void bottomView(Tnode *node)
     cout << endl;
 }
 
-void rightView(Tnode *node){
+void rightView(Tnode *node)
+{
     // base cases
-    if(node == NULL)
+    if (node == NULL)
         return;
-    
-    // map to store horizontal line and the current node
-    map<int, int> m;
 
-    // queue to store current level line and Nodes
-    queue<pair<Tnode *, int>> queue;
+    queue<Tnode *> queue;
+    queue.push(node);
 
-    // push root to the queue
-    queue.push({node, 1});
+    cout << "Right View of Tree" << endl;
+    while (!queue.empty())
+    {
+        int size = queue.size();
 
-    while(!queue.empty()){
-        auto it = queue.front();
-        queue.pop();
+        while (size--)
+        {
+            Tnode *node = queue.front();
+            queue.pop();
 
-        Tnode *curr = it.first;
-        int level = it.second;
+            if (size == 0)
+                cout << node->data << " ";
 
-        
+            if (node->left)
+                queue.push(node->left);
+            if (node->right)
+                queue.push(node->right);
+        }
     }
+    cout << endl;
+}
+
+void leftView(Tnode *node)
+{
+    // base cases
+    if (node == NULL)
+        return;
+
+    queue<Tnode *> queue;
+    queue.push(node);
+
+    cout << "Left View of Tree" << endl;
+
+    while (!queue.empty())
+    {
+        int size = queue.size();
+
+        for (int i = 0; i < size; i++)
+        {
+            Tnode *node = queue.front();
+            queue.pop();
+
+            if (i == 0)
+                cout << node->data << " ";
+
+            if (node->left)
+                queue.push(node->left);
+            if (node->right)
+                queue.push(node->right);
+        }
+    }
+    cout << endl;
+}
+
+bool pathExists(Tnode *node, vector<int> &arr, int key)
+{
+    if (node == NULL)
+        return false;
+
+    // push node to the arr
+    arr.push_back(node->data);
+
+    if (node->data == key)
+    {
+        return true;
+    }
+
+    if (pathExists(node->left, arr, key) || pathExists(node->right, arr, key))
+    {
+        return true;
+    }
+
+    arr.pop_back();
+    return false;
+}
+
+void printPath(Tnode *node, int key)
+{
+    vector<int> arr;
+
+    if (pathExists(node, arr, key))
+    {
+        cout << "Path to " << key << ": ";
+        for (auto x : arr)
+        {
+            if (x == arr[arr.size() - 1])
+            {
+                cout << x << endl;
+                break;
+            }
+            cout << x << "->";
+        }
+    }
+    else
+        cout << "Path does not exist" << endl;
 }

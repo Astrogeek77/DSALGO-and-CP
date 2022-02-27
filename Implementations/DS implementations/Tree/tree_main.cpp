@@ -124,9 +124,9 @@ int main()
   // cout << "\nIterative Postorder traversal (using 1 stack) of binary tree is \n";
   // IterativePostorder2(root);
 
-  cout << "\nLevel Order traversal of binary tree is \n";
-  printLevelOrderTraversal(root);
-  cout << endl;
+  // cout << "\nLevel Order traversal of binary tree is \n";
+  // printLevelOrderTraversal(root);
+  // cout << endl;
 
   // cout << "\nIterative Level Order traversal of binary tree is \n";
   // printLevelorder(root);
@@ -139,8 +139,8 @@ int main()
   // cout << "Boundary Traversal" << endl;
   // boundaryTraversal(root);
 
-  cout << "Vertical Traversal" << endl;
-  verticalTraversal(root3);
+  // cout << "Vertical Traversal" << endl;
+  // verticalTraversal(root3);
 
   // ++++++++++++++++++++++++++++++++++++++++++
   // Operations
@@ -185,6 +185,10 @@ int main()
 
   // cout << "is Tree same : " << isSameTree(root, root2) << endl;
 
-  topView(root3);
-  bottomView(root3);
+  // topView(root);
+  // bottomView(root);
+  // leftView(root);
+  // rightView(root);
+
+  printPath(root, 12);
 }
