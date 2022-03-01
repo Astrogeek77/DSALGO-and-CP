@@ -40,8 +40,8 @@ int main()
     8  9 10 11 12 13 14 15
    */
 
-  Tnode *root = new Tnode(1);  
-  root->left = new Tnode(2); 
+  Tnode *root = new Tnode(1);
+  root->left = new Tnode(2);
   root->right = new Tnode(3);
   root->left->left = new Tnode(4);
   root->left->right = new Tnode(5);
@@ -139,8 +139,8 @@ int main()
   // cout << "Boundary Traversal" << endl;
   // boundaryTraversal(root);
 
-  // cout << "Vertical Traversal" << endl;
-  // verticalTraversal(root3);
+  cout << "Vertical Traversal" << endl;
+  verticalTraversal(root);
 
   // ++++++++++++++++++++++++++++++++++++++++++
   // Operations
@@ -190,5 +190,9 @@ int main()
   // leftView(root);
   // rightView(root);
 
-  printPath(root, 12);
+  // printPath(root, 12);
+
+  int v1 = 5, v2 = 11;
+  cout << "Lowest Common Anscestor of " << v1 << " and " << v2
+       << " is: " << LCA(root, v1, v2)->data;
 }

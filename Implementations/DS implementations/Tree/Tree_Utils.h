@@ -354,6 +354,11 @@ void bottomView(Tnode *node)
     cout << endl;
 }
 
+// self notes:
+// 🚀 for every level, the first node (on the right side) will be our right side view
+// 🚀 if the level of the tree == my vector's size, I need to push it into my vector
+// 🚀 if at any point we reach a null node, we just need to return (base case)
+
 void rightView(Tnode *node)
 {
     // base cases
@@ -363,7 +368,11 @@ void rightView(Tnode *node)
     queue<Tnode *> queue;
     queue.push(node);
 
-    cout << "Right View of Tree" << endl;
+    // During level order traversal, we had one size variable which tells the size of queue at each level so if i == size - 1;
+    // then that element is the last element of that level so we can push it into the data structure.
+
+    cout
+        << "Right View of Tree" << endl;
     while (!queue.empty())
     {
         int size = queue.size();
@@ -394,6 +403,9 @@ void leftView(Tnode *node)
     queue<Tnode *> queue;
     queue.push(node);
 
+    // During level order traversal, we had one size variable which tells the size of queue at each level so if i == 0;
+    // then that element is the last element of that level so we can push it into the data structure.
+
     cout << "Left View of Tree" << endl;
 
     while (!queue.empty())
@@ -416,6 +428,63 @@ void leftView(Tnode *node)
     }
     cout << endl;
 }
+
+// void NodesinLine(Tnode *node) // prints the nodes in a vertical line
+// {
+//     // base cases
+//     if (node == NULL)
+//         return;
+
+//     // a map to store the vertical line and data
+//     map<int, vector<int>> m;
+
+//     // queue to store the current line and the node
+//     queue<pair<Tnode *, int>> q;
+
+//     // push the root of tree to the queue
+//     q.push({node, 0});
+
+//     int l;
+//     cout << "Enter a vertical line number: " << endl;
+//     cin >> l;
+
+//     // cout << "Starting line " << endl;
+
+//     cout << "Top View of Tree" << endl;
+
+//     while (!q.empty())
+//     {
+//         auto it = q.front();
+//         // cout << it.first << " " << it.second << endl;
+//         q.pop();
+
+//         Tnode *curr = it.first; // current node
+//         int line = it.second;   // the current vertical line
+
+//         // cout << line << endl;
+
+//         if (m.find(line) == m.end())
+//             m[line] = curr->data;
+
+//         if (curr->left)
+//         {
+//             q.push({curr->left, line - 1});
+//         }
+
+//         if (curr->right)
+//         {
+//             q.push({curr->right, line + 1});
+//         }
+//     }
+
+//     // print the topView
+//     for (auto x : m)
+//     {
+//         // cout << "log" << endl;
+//         cout << x.second << " ";
+//     }
+//     cout << endl;
+// }
 
 bool pathExists(Tnode *node, vector<int> &arr, int key)
 {
@@ -458,4 +527,39 @@ void printPath(Tnode *node, int key)
     }
     else
         cout << "Path does not exist" << endl;
+}
+
+bool isTreeSymetrical(Tnode *node1, Tnode *node2)
+{
+    //     Self Notes:
+    // 💡 Mirror property is    left == right and right == left
+    // 💡 pre-order traversal on root->left subtree, (root, left, right)
+    // 💡 modified pre-order traversal on root->right subtree, (root, right, left)
+    // 💡 compare the node val's if they are the same
+    // 💡 Do both traversals at the same time
+    // 💡 if left is null or right is null, then both sides must match and return true (base case)
+
+    if (!node1)
+        return !node2;
+    if (!node2)
+        return !node1;
+    return (node1->data == node2->data) && (isTreeSymetrical(node1->left, node2->right)) && (isTreeSymetrical(node1->right, node2->left));
+}
+
+Tnode *LCA(Tnode *node, int val1, int val2)
+{
+    // Brute force solution here is print the path for the two nodes and compare the paths.
+    // return the last node, after which the paths become different.
+
+    // assuming that val1 and val2 exist in the tree
+    if (node == NULL || node->data == val1 || node->data == val2)
+        return node;
+
+    Tnode *left = LCA(node->left, val1, val2);
+    Tnode *right = LCA(node->right, val1, val2);
+
+    if (left && right)
+        return node;
+    
+    return (left != NULL ? left : right);
 }
