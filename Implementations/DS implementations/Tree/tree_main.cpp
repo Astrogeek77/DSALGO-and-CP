@@ -34,7 +34,7 @@ int main()
          2       3
         / \     / \
        /   \   /   \
-     4    5     6     7
+     4     5    6     7
      /\   /\    /\    /\
     /  \ /  \  /  \  /  \
     8  9 10 11 12 13 14 15
@@ -75,9 +75,9 @@ int main()
 
   //          7
   //        /   \
-    //       9     10
+  //       9     10
   //      / \    / \
-    //     3   6  2   8
+  //     3   6  2   8
   //    /
   //   4
 
@@ -139,8 +139,8 @@ int main()
   // cout << "Boundary Traversal" << endl;
   // boundaryTraversal(root);
 
-  cout << "Vertical Traversal" << endl;
-  verticalTraversal(root);
+  // cout << "Vertical Traversal" << endl;
+  // verticalTraversal(root);
 
   // ++++++++++++++++++++++++++++++++++++++++++
   // Operations
@@ -192,7 +192,13 @@ int main()
 
   // printPath(root, 12);
 
-  int v1 = 5, v2 = 11;
-  cout << "Lowest Common Anscestor of " << v1 << " and " << v2
-       << " is: " << LCA(root, v1, v2)->data;
+  // int v1 = 5, v2 = 11;
+  // cout << "Lowest Common Anscestor of " << v1 << " and " << v2
+  //      << " is: " << LCA(root, v1, v2)->data;
+
+  // cout << "Max Width of the tree: " << maxWidth(root2) << endl;
+
+  // changeToSumTree(root2);
+  // printLevelorder(root2);
+  // cout << endl;
 }

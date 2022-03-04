@@ -560,6 +560,103 @@ Tnode *LCA(Tnode *node, int val1, int val2)
 
     if (left && right)
         return node;
-    
+
     return (left != NULL ? left : right);
+}
+
+int maxWidth(Tnode *node)
+{
+    /*
+    func to calc max width of a tree dependent on a Level
+    we do level order traversel and assign the value to a node (levelNum)
+    acc to the rule l = 2 * i , r = 2 * i + 1 (i = parent, l, r = child)
+    */
+    if (node == NULL)
+        return 0;
+    queue<pair<Tnode *, int>> q;
+    q.push({node, 0});
+    int w = 0; // width
+
+    while (!q.empty())
+    {
+        int size = q.size();
+        int levelMin = q.front().second;
+        int last, first;
+
+        for (int i = 0; i < size; i++)
+        {
+            auto it = q.front();
+            Tnode *curr = it.first; // current node
+            q.pop();                // remove
+
+            // we subtract minimum in level to start the next level from zero thus eliminating the overflow issue in case of skew trees.
+            int id = it.second - levelMin;
+            if (i == 0)
+                first = id;
+            if (i == size - 1)
+                last = id;
+
+            if (curr->left)
+            {
+                q.push({curr->left, (2 * id) + 1});
+            }
+            if (curr->right)
+            {
+                q.push({curr->right, (2 * id) + 2});
+            }
+        }
+        w = max(w, last - first + 1);
+    }
+    return w;
+}
+
+void changeToSumTree(Tnode *node)
+{
+    /*
+    covert a arbitrary tree to a tree that follows children sum property
+    that is parent = left + right;
+    */
+
+    if (node == NULL)
+        return;
+
+    int child = 0;
+
+    // calc the child sum value for a node
+    if (node->left)
+    {
+        child += node->left->data;
+    }
+    if (node->right)
+    {
+        child += node->right->data;
+    }
+
+    // check if the child sum is greater or less than root value, update root or childs accordingly
+    int d = node->data;
+    if (child >= d)
+    {
+        node->data = child;
+    }
+    else
+    {
+        if (node->left)
+            node->left->data = d;
+        if (node->right)
+            node->right->data = d;
+    }
+
+    // call for left and right child
+    changeToSumTree(node->left);
+    changeToSumTree(node->right);
+
+    // again calc sum while going up towards the root to update it
+    int total = 0;
+    if (node->left)
+        total += node->left->data;
+    if (node->right)
+        total += node->right->data;
+
+    if (node->left or node->right) // should not be a leaf
+        node->data = total;
 }
