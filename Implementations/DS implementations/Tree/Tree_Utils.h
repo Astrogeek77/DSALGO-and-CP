@@ -5,19 +5,19 @@ int MAX = INT_MAX;
 
 vector<int> result;
 
-bool treeIncludes(Tnode *root, int key)
+bool treeIncludes(Tnode* root, int key)
 {
     if (root == NULL)
         return false;
     if (root->data == key)
         return true;
 
-    queue<Tnode *> queue;
+    queue<Tnode*> queue;
     queue.push(root);
 
     while (!queue.empty())
     {
-        Tnode *current = queue.front();
+        Tnode* current = queue.front();
         if (current->data == key)
             return true;
 
@@ -31,7 +31,7 @@ bool treeIncludes(Tnode *root, int key)
     return false;
 }
 
-bool treeIncludesRecursive(Tnode *root, int key)
+bool treeIncludesRecursive(Tnode* root, int key)
 {
     if (root == NULL)
         return false;
@@ -41,7 +41,7 @@ bool treeIncludesRecursive(Tnode *root, int key)
     return treeIncludes(root->left, key) || treeIncludes(root->right, key);
 }
 
-int treeSumRecursive(Tnode *root, int sum)
+int treeSumRecursive(Tnode* root, int sum)
 {
     if (root == NULL)
         return 0;
@@ -49,18 +49,18 @@ int treeSumRecursive(Tnode *root, int sum)
     return sum;
 }
 
-int treeSum(Tnode *root, int sum)
+int treeSum(Tnode* root, int sum)
 {
     // Breadth First Traversal
     if (root == NULL)
         return 0;
 
-    queue<Tnode *> queue;
+    queue<Tnode*> queue;
     queue.push(root);
 
     while (!queue.empty())
     {
-        Tnode *current = queue.front();
+        Tnode* current = queue.front();
         sum += current->data;
 
         if (current->left)
@@ -74,7 +74,7 @@ int treeSum(Tnode *root, int sum)
     return sum;
 }
 
-int findMinRecursive(Tnode *root)
+int findMinRecursive(Tnode* root)
 {
     if (root == NULL)
         return MAX;
@@ -82,7 +82,7 @@ int findMinRecursive(Tnode *root)
     return min(findMinRecursive(root->left), min(findMinRecursive(root->right), root->data));
 }
 
-int findMaxRecursive(Tnode *root)
+int findMaxRecursive(Tnode* root)
 {
     if (root == NULL)
         return MIN;
@@ -90,18 +90,18 @@ int findMaxRecursive(Tnode *root)
     return max(findMaxRecursive(root->left), max(findMaxRecursive(root->right), root->data));
 }
 
-int findMin(Tnode *root)
+int findMin(Tnode* root)
 {
     if (root == NULL)
         return MAX;
 
-    queue<Tnode *> queue;
+    queue<Tnode*> queue;
     int minvalue = root->data;
     queue.push(root);
 
     while (!queue.empty())
     {
-        Tnode *current = queue.front();
+        Tnode* current = queue.front();
         if (minvalue > current->data)
             minvalue = current->data;
 
@@ -115,7 +115,7 @@ int findMin(Tnode *root)
     return minvalue;
 }
 
-int maxRoottoLeafSum(Tnode *root)
+int maxRoottoLeafSum(Tnode* root)
 {
     if (root == NULL)
         return MIN + 1000;
@@ -125,7 +125,7 @@ int maxRoottoLeafSum(Tnode *root)
     return max(maxRoottoLeafSum(root->left) + root->data, maxRoottoLeafSum(root->right) + root->data);
 }
 
-int minRoottoLeafSum(Tnode *root)
+int minRoottoLeafSum(Tnode* root)
 {
     if (root == NULL)
         return MAX - 1000;
@@ -150,7 +150,7 @@ int minRoottoLeafSum(Tnode *root)
 //     }
 // }
 
-bool isSameTree(Tnode *node1, Tnode *node2)
+bool isSameTree(Tnode* node1, Tnode* node2)
 {
     if (!node1)
         return !node2;
@@ -159,7 +159,7 @@ bool isSameTree(Tnode *node1, Tnode *node2)
     return (node1->data == node2->data) && (isSameTree(node1->left, node2->left)) && (isSameTree(node1->right, node2->right));
 }
 
-int maxPathSum(Tnode *node, int &maxi)
+int maxPathSum(Tnode* node, int& maxi)
 {
     if (node == NULL)
         return 0;
@@ -169,7 +169,7 @@ int maxPathSum(Tnode *node, int &maxi)
     return max(lh, rh) + node->data;
 }
 
-int maxDiameter(Tnode *node, int &d)
+int maxDiameter(Tnode* node, int& d)
 {
     if (node == NULL)
         return 0;
@@ -179,7 +179,7 @@ int maxDiameter(Tnode *node, int &d)
     return (1 + max(lh, rh));
 }
 
-int maxDepth(Tnode *node)
+int maxDepth(Tnode* node)
 {
     if (node == NULL)
         return 0;
@@ -198,7 +198,7 @@ int maxDepth(Tnode *node)
     // return (max(leftDepth, rightDepth) + 1);
 }
 
-int calcHeight(Tnode *node)
+int calcHeight(Tnode* node)
 {
     if (node == NULL)
         return 0;
@@ -214,20 +214,20 @@ int calcHeight(Tnode *node)
     return max(lh, rh) + 1;
 }
 
-bool isBalanced(Tnode *node)
+bool isBalanced(Tnode* node)
 {
     return (calcHeight(node) != -1);
 }
 
-int IterativeCalcHeight(Tnode *node)
+int IterativeCalcHeight(Tnode* node)
 {
     if (node == NULL)
         return 0;
 
-    queue<Tnode *> queue;
+    queue<Tnode*> queue;
     int height = 0;
     int nodeCount;
-    Tnode *current;
+    Tnode* current;
 
     queue.push(node);
     while (!queue.empty())
@@ -250,7 +250,7 @@ int IterativeCalcHeight(Tnode *node)
     return height;
 }
 
-void topView(Tnode *node)
+void topView(Tnode* node)
 {
     // base cases
     if (node == NULL)
@@ -260,10 +260,10 @@ void topView(Tnode *node)
     map<int, int> m;
 
     // queue to store the current line and the node
-    queue<pair<Tnode *, int>> q;
+    queue<pair<Tnode*, int>> q;
 
     // push the root of tree to the queue
-    q.push({node, 0});
+    q.push({ node, 0 });
 
     // cout << "Starting line " << endl;
 
@@ -275,7 +275,7 @@ void topView(Tnode *node)
         // cout << it.first << " " << it.second << endl;
         q.pop();
 
-        Tnode *curr = it.first; // current node
+        Tnode* curr = it.first; // current node
         int line = it.second;   // the current vertical line
 
         // cout << line << endl;
@@ -285,12 +285,12 @@ void topView(Tnode *node)
 
         if (curr->left)
         {
-            q.push({curr->left, line - 1});
+            q.push({ curr->left, line - 1 });
         }
 
         if (curr->right)
         {
-            q.push({curr->right, line + 1});
+            q.push({ curr->right, line + 1 });
         }
     }
 
@@ -303,7 +303,7 @@ void topView(Tnode *node)
     cout << endl;
 }
 
-void bottomView(Tnode *node)
+void bottomView(Tnode* node)
 {
     // base cases
     if (node == NULL)
@@ -313,10 +313,10 @@ void bottomView(Tnode *node)
     map<int, int> m;
 
     // queue to store the current line and the node
-    queue<pair<Tnode *, int>> q;
+    queue<pair<Tnode*, int>> q;
 
     // push the root of tree to the queue
-    q.push({node, 0});
+    q.push({ node, 0 });
 
     // cout << "Starting line " << endl;
     cout << "Bottom View of Tree" << endl;
@@ -327,7 +327,7 @@ void bottomView(Tnode *node)
         // cout << it.first << " " << it.second << endl;
         q.pop();
 
-        Tnode *curr = it.first; // current node
+        Tnode* curr = it.first; // current node
         int line = it.second;   // the current vertical line
 
         // cout << line << endl;
@@ -336,12 +336,12 @@ void bottomView(Tnode *node)
 
         if (curr->left)
         {
-            q.push({curr->left, line - 1});
+            q.push({ curr->left, line - 1 });
         }
 
         if (curr->right)
         {
-            q.push({curr->right, line + 1});
+            q.push({ curr->right, line + 1 });
         }
     }
 
@@ -359,13 +359,13 @@ void bottomView(Tnode *node)
 // 🚀 if the level of the tree == my vector's size, I need to push it into my vector
 // 🚀 if at any point we reach a null node, we just need to return (base case)
 
-void rightView(Tnode *node)
+void rightView(Tnode* node)
 {
     // base cases
     if (node == NULL)
         return;
 
-    queue<Tnode *> queue;
+    queue<Tnode*> queue;
     queue.push(node);
 
     // During level order traversal, we had one size variable which tells the size of queue at each level so if i == size - 1;
@@ -379,7 +379,7 @@ void rightView(Tnode *node)
 
         while (size--)
         {
-            Tnode *node = queue.front();
+            Tnode* node = queue.front();
             queue.pop();
 
             if (size == 0)
@@ -394,13 +394,13 @@ void rightView(Tnode *node)
     cout << endl;
 }
 
-void leftView(Tnode *node)
+void leftView(Tnode* node)
 {
     // base cases
     if (node == NULL)
         return;
 
-    queue<Tnode *> queue;
+    queue<Tnode*> queue;
     queue.push(node);
 
     // During level order traversal, we had one size variable which tells the size of queue at each level so if i == 0;
@@ -414,7 +414,7 @@ void leftView(Tnode *node)
 
         for (int i = 0; i < size; i++)
         {
-            Tnode *node = queue.front();
+            Tnode* node = queue.front();
             queue.pop();
 
             if (i == 0)
@@ -486,7 +486,7 @@ void leftView(Tnode *node)
 //     cout << endl;
 // }
 
-bool pathExists(Tnode *node, vector<int> &arr, int key)
+bool pathExists(Tnode* node, vector<int>& arr, int key)
 {
     if (node == NULL)
         return false;
@@ -508,7 +508,7 @@ bool pathExists(Tnode *node, vector<int> &arr, int key)
     return false;
 }
 
-void printPath(Tnode *node, int key)
+void printPath(Tnode* node, int key)
 {
     vector<int> arr;
 
@@ -529,7 +529,7 @@ void printPath(Tnode *node, int key)
         cout << "Path does not exist" << endl;
 }
 
-bool isTreeSymetrical(Tnode *node1, Tnode *node2)
+bool isTreeSymetrical(Tnode* node1, Tnode* node2)
 {
     //     Self Notes:
     // 💡 Mirror property is    left == right and right == left
@@ -546,7 +546,7 @@ bool isTreeSymetrical(Tnode *node1, Tnode *node2)
     return (node1->data == node2->data) && (isTreeSymetrical(node1->left, node2->right)) && (isTreeSymetrical(node1->right, node2->left));
 }
 
-Tnode *LCA(Tnode *node, int val1, int val2)
+Tnode* LCA(Tnode* node, int val1, int val2)
 {
     // Brute force solution here is print the path for the two nodes and compare the paths.
     // return the last node, after which the paths become different.
@@ -555,8 +555,8 @@ Tnode *LCA(Tnode *node, int val1, int val2)
     if (node == NULL || node->data == val1 || node->data == val2)
         return node;
 
-    Tnode *left = LCA(node->left, val1, val2);
-    Tnode *right = LCA(node->right, val1, val2);
+    Tnode* left = LCA(node->left, val1, val2);
+    Tnode* right = LCA(node->right, val1, val2);
 
     if (left && right)
         return node;
@@ -564,7 +564,7 @@ Tnode *LCA(Tnode *node, int val1, int val2)
     return (left != NULL ? left : right);
 }
 
-int maxWidth(Tnode *node)
+int maxWidth(Tnode* node)
 {
     /*
     func to calc max width of a tree dependent on a Level
@@ -573,8 +573,8 @@ int maxWidth(Tnode *node)
     */
     if (node == NULL)
         return 0;
-    queue<pair<Tnode *, int>> q;
-    q.push({node, 0});
+    queue<pair<Tnode*, int>> q;
+    q.push({ node, 0 });
     int w = 0; // width
 
     while (!q.empty())
@@ -586,7 +586,7 @@ int maxWidth(Tnode *node)
         for (int i = 0; i < size; i++)
         {
             auto it = q.front();
-            Tnode *curr = it.first; // current node
+            Tnode* curr = it.first; // current node
             q.pop();                // remove
 
             // we subtract minimum in level to start the next level from zero thus eliminating the overflow issue in case of skew trees.
@@ -598,11 +598,11 @@ int maxWidth(Tnode *node)
 
             if (curr->left)
             {
-                q.push({curr->left, (2 * id) + 1});
+                q.push({ curr->left, (2 * id) + 1 });
             }
             if (curr->right)
             {
-                q.push({curr->right, (2 * id) + 2});
+                q.push({ curr->right, (2 * id) + 2 });
             }
         }
         w = max(w, last - first + 1);
@@ -610,7 +610,7 @@ int maxWidth(Tnode *node)
     return w;
 }
 
-void changeToSumTree(Tnode *node)
+void changeToSumTree(Tnode* node)
 {
     /*
     covert a arbitrary tree to a tree that follows children sum property
@@ -660,3 +660,289 @@ void changeToSumTree(Tnode *node)
     if (node->left or node->right) // should not be a leaf
         node->data = total;
 }
+
+void markParents(Tnode* node, unordered_map<Tnode*, Tnode*>& parentTrack)
+{
+    // function to create a map of nodes with their respective parents for traversal
+    if (node == NULL)
+        return;
+
+    queue<Tnode*> queue;
+    queue.push(node);
+
+    while (queue.empty() == false)
+    {
+        Tnode* curr = queue.front();
+        queue.pop();
+        if (curr->left)
+        {
+            parentTrack[curr->left] = curr;
+            queue.push(curr->left);
+        }
+
+        if (curr->right)
+        {
+            parentTrack[curr->right] = curr;
+            queue.push(curr->right);
+        }
+    }
+}
+
+Tnode* searchNodeByValue(Tnode* node, int value)
+{
+    if (node == NULL || node->data == value)
+        return node;
+
+    queue<Tnode*> queue;
+    queue.push(node);
+
+    while (!queue.empty())
+    {
+        Tnode* curr = queue.front();
+        if (curr->data == value)
+            return curr;
+        queue.pop();
+
+        if (curr->left)
+        {
+            queue.push(curr->left);
+        }
+
+        if (curr->right)
+        {
+            queue.push(curr->right);
+        }
+    }
+    return NULL;
+}
+
+// void printVector(vector<int> v)
+// {
+//     for (auto x : v)
+//     {
+//         cout << x << " ";
+//     }
+//     cout << endl;
+// }
+
+void NodesAtDistanceK(Tnode* node, int target, int k)
+{
+    // func to find all the nodes from a target node that lie at a given distance K.
+
+    if (node == NULL)
+        return;
+
+    /*
+        Self Notes:
+         Mark each node to its parent to traverse upwards
+         We will do a BFS traversal starting from the target node
+         As long as we have not seen our node previously, Traverse up, left, right until reached Kth distance
+         when reached Kth distance, break out of BFS loop and remaining node's values in our queue is our result
+
+         thus basically our approach is to convert the tree into a undirected graph of sorts.
+    */
+    unordered_map<Tnode*, Tnode*> parentTrack;
+    markParents(node, parentTrack);
+
+    unordered_map<Tnode*, bool> visited;
+
+    queue<Tnode*> queue;
+    // cout << "Start" << endl;
+    Tnode* targetNode = searchNodeByValue(node, target);
+    if (targetNode == NULL)
+        return;
+
+    // cout << "TargetNode" << targetNode->data << endl;
+
+    queue.push(targetNode);
+    visited[targetNode] = true;
+
+    int dist = 0;
+
+    while (!queue.empty())
+    {
+        // cout << "Distance" << dist << endl;
+        int size = queue.size();
+        if (dist++ == k) // break out of loop as soon as distance == k
+            break;
+
+        for (int i = 0; i < size; i++)
+        {
+            Tnode* curr = queue.front();
+            queue.pop();
+
+            if (curr->left and !visited[curr->left])
+            {
+                queue.push(curr->left); // push left if not visited
+                visited[curr->left] = true;
+            }
+
+            if (curr->right and !visited[curr->right])
+            {
+                queue.push(curr->right); // push right if not visited
+                visited[curr->right] = true;
+            }
+
+            if (parentTrack[curr] and !visited[parentTrack[curr]])
+            {
+                queue.push(parentTrack[curr]); // push parent if not visited
+                visited[parentTrack[curr]] = true;
+            }
+        }
+    }
+    vector<int> result;
+
+    while (queue.empty() == false)
+    {
+        Tnode* temp = queue.front();
+        queue.pop();
+        result.push_back(temp->data);
+    }
+    printVector(result);
+}
+
+int getBurnTime(Tnode* node, int target)
+{
+    /*
+        Func to calc burn time(in secs) for a tree, starting from the given node
+    */
+
+    if (node == NULL)
+        return 0;
+
+    unordered_map<Tnode*, Tnode*> parentTrack;
+    markParents(node, parentTrack);
+
+    unordered_map<Tnode*, bool> visited;
+
+    queue<Tnode*> queue;
+    // cout << "Start" << endl;
+    Tnode* targetNode = searchNodeByValue(node, target);
+    if (targetNode == NULL)
+        return 0;
+
+    // cout << "TargetNode" << targetNode->data << endl;
+
+    queue.push(targetNode);
+    visited[targetNode] = true;
+
+    int time = 0;
+
+    while (!queue.empty())
+    {
+        // cout << "Time" << time << endl;
+        int size = queue.size();
+        bool nodeExists = false;
+
+        for (int i = 0; i < size; i++)
+        {
+            Tnode* curr = queue.front();
+            queue.pop();
+
+            if (curr->left and !visited[curr->left])
+            {
+                nodeExists = true;
+                queue.push(curr->left); // push left if not visited
+                visited[curr->left] = true;
+            }
+
+            if (curr->right and !visited[curr->right])
+            {
+                nodeExists = true;
+                queue.push(curr->right); // push right if not visited
+                visited[curr->right] = true;
+            }
+
+            if (parentTrack[curr] and !visited[parentTrack[curr]])
+            {
+                nodeExists = true;
+                queue.push(parentTrack[curr]); // push parent if not visited
+                visited[parentTrack[curr]] = true;
+            }
+        }
+        if (nodeExists) time++;
+    }
+    return time;
+}
+
+int getLeftHeight(Tnode* node) {
+    int lh = 0;
+    while (node != NULL) {
+        lh++;
+        node = node->left;
+    }
+    return lh;
+}
+
+int getRightHeight(Tnode* node) {
+    int rh = 0;
+    while (node != NULL) {
+        rh++;
+        node = node->right;
+    }
+    return rh;
+}
+
+int countNodesCBT(Tnode* node) {
+    /*
+        func to calc total number of nodes in a complete binary tree
+        using relation that total nodes in full binary tree are 2 ^ h - 1 (h = height)
+    */
+
+    int lh = getLeftHeight(node);
+    int rh = getRightHeight(node);
+
+    if (lh == rh) return (1 << lh) - 1;
+
+    return 1 + countNodesCBT(node->left) + countNodesCBT(node->right);
+}
+
+// Build Tree from preorder and inorder
+
+Tnode* constructTree1(vector<int> preorder, int preStart, int preEnd, vector<int> inorder, int inStart, int inEnd, map<int, int>& map) {
+    if (preStart > preEnd or inStart > inEnd) { return NULL; }
+
+    Tnode* root = new Tnode(preorder[preStart]);
+    int inRoot = map[root->data];
+    int numsLeft = inRoot - inStart;
+
+    root->left = constructTree1(preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot - 1, map);
+    root->right = constructTree1(preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd, map);
+    return root;
+}
+
+Tnode* buildTree(vector<int> preorder, vector<int>inorder) {
+    // preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+    map<int, int> map;
+    for (int i = 0; i < inorder.size(); i++)
+        map[inorder[i]] = i;
+
+    Tnode* root = constructTree1(preorder, 0, preorder.size() - 1, inorder, 0, inorder.size() - 1, map);
+    return root;
+}
+
+// Build Tree from postorder and inorder
+
+Tnode* constructTree2(vector<int> inorder, int inStart, int inEnd, vector<int> postorder, int postStart, int postEnd, map<int, int>& map) {
+    if (preStart > preEnd or inStart > inEnd) { return NULL; }
+
+    Tnode* root = new Tnode(preorder[postEnd]);
+    int ri = map[postorder[postEnd]];
+    // int inRoot = map[root->data];
+    int numsLeft = inRoot - inStart;
+
+    root->left = constructTree2(inorder, inStart, ri - 1, postorder, postStart + ri - is );
+    root->right = constructTree2(preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd, map);
+    return root;
+}
+
+Tnode* buildTree(vector<int>inorder, vector<int> postorder) {
+    // preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+    map<int, int> map;
+    for (int i = 0; i < inorder.size(); i++)
+        map[inorder[i]] = i;
+
+    Tnode* root = constructTree2(inorder, 0, inorder.size() - 1, postorder, 0, postorder.size() - 1, map);
+    return root;
+}
+
