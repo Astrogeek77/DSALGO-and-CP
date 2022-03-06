@@ -8,7 +8,7 @@ int main()
   // Tree - 1
   // ++++++++++++++++++++++++++++++++++++++++++
 
-  Tnode* root3 = new Tnode(1); // root
+  Tnode *root3 = new Tnode(1); // root
   root3->left = new Tnode(2);
   root3->right = new Tnode(3);
   root3->left->left = new Tnode(4);
@@ -40,7 +40,7 @@ int main()
     8  9 10 11 12 13 14 15
    */
 
-  Tnode* root = new Tnode(1);
+  Tnode *root = new Tnode(1);
   root->left = new Tnode(2);
   root->right = new Tnode(3);
   root->left->left = new Tnode(4);
@@ -81,7 +81,7 @@ int main()
   //    /
   //   4
 
-  Tnode* root2 = new Tnode(7);
+  Tnode *root2 = new Tnode(7);
   root2->left = new Tnode(9);
   root2->right = new Tnode(10);
   root2->left->left = new Tnode(3);
@@ -213,8 +213,15 @@ int main()
 
   // cout << "Total Nodes in CBT: " << countNodesCBT(root) << endl;
 
-  vector<int> preorder = { 3,9,20,15,7 };
-  vector<int> inorder = { 9, 3, 15, 20, 7 };
-  Tnode* root5 = buildTree(preorder, inorder);
-  printLevelOrderTraversal(root5);
+  // vector<int> preorder = {3, 9, 20, 15, 7};
+  // vector<int> inorder = {9, 3, 15, 20, 7};
+  // Tnode *root5 = buildTree1(preorder, inorder);
+  // printLevelorder(root5);
+
+  vector<int> postorder = {9, 15, 7, 20, 3};
+  vector<int> inorder2 = {9, 3, 15, 20, 7};
+  Tnode *root6 = buildTree2(inorder2, postorder);
+  printLevelorder(root6);
+
+  serialize(root6);
 }

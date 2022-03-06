@@ -53,6 +53,7 @@ void printLevelorder(Tnode *node)
             queue.push(temp->right);
         queue.pop();
     }
+    cout << endl;
 }
 
 bool printGivenLevel(Tnode *node, int level)
