@@ -142,6 +142,10 @@ int main()
   // cout << "Vertical Traversal" << endl;
   // verticalTraversal(root);
 
+  // MorrisInorder(root);
+  // MorrisPreorder(root);
+
+
   // ++++++++++++++++++++++++++++++++++++++++++
   // Operations
   // ++++++++++++++++++++++++++++++++++++++++++
@@ -218,10 +222,18 @@ int main()
   // Tnode *root5 = buildTree1(preorder, inorder);
   // printLevelorder(root5);
 
-  vector<int> postorder = {9, 15, 7, 20, 3};
-  vector<int> inorder2 = {9, 3, 15, 20, 7};
-  Tnode *root6 = buildTree2(inorder2, postorder);
-  printLevelorder(root6);
+  // vector<int> postorder = {9, 15, 7, 20, 3};
+  // vector<int> inorder2 = {9, 3, 15, 20, 7};
+  // Tnode *root6 = buildTree2(inorder2, postorder);
+  // printLevelorder(root6);
 
-  serialize(root6);
+  // string str = serialize(root6);
+  // Tnode *root7 = deserialize(str);
+  // printLevelorder(root7);
+
+  flattenToLL3(root);
+  serialize(root);
+
+  flattenToLL2(root);
+  serialize(root);
 }

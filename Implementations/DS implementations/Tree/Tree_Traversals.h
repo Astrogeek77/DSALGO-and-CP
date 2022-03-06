@@ -537,3 +537,110 @@ void verticalTraversal(Tnode *node)
     }
     // return ans;
 }
+
+// ? Morris Traversals
+
+void MorrisInorder(Tnode *node)
+{
+    if (node == NULL)
+        return;
+    vector<int> inorder;
+    Tnode *curr = node;
+
+    while (curr != NULL)
+    {
+        // case 1 : if node->left == NULL print the current node and go right.
+        if (curr->left == NULL)
+        {
+            inorder.push_back(curr->data);
+            curr = curr->right;
+        }
+        else
+        {
+            Tnode *prev = curr->left;
+            while (prev->right && prev->right != curr)
+            {
+                prev = prev->right; // right most node on the left subtree
+            }
+            // case 2: if left exists, make the right most node on the left subtree point to the curr node, then go left.
+            if (prev->right == NULL)
+            {
+                prev->right = curr;
+                curr = curr->left;
+            }
+            else
+            {
+                // case 3:  severe the connection from curr and print the curr node and go right.
+                prev->right = NULL;
+                inorder.push_back(curr->data);
+                curr = curr->right;
+            }
+        }
+    }
+    cout << "Morris Inorder Traversal: " << endl;
+    printVector(inorder);
+}
+
+void MorrisPreorder(Tnode *node)
+{
+    if (node == NULL)
+        return;
+    vector<int> preorder;
+    Tnode *curr = node;
+
+    while (curr != NULL)
+    {
+        // case 1 : if node->left == NULL print the current node and go right.
+        if (curr->left == NULL)
+        {
+            preorder.push_back(curr->data);
+            curr = curr->right;
+        }
+        else
+        {
+            Tnode *prev = curr->left;
+            while (prev->right && prev->right != curr)
+            {
+                prev = prev->right; // right most node on the left subtree
+            }
+            // case 2: if left exists, make the right most node on the left subtree point to the curr node, print the node. then go left.
+            if (prev->right == NULL)
+            {
+                prev->right = curr;
+                preorder.push_back(curr->data);
+                curr = curr->left;
+            }
+            else
+            {
+                // case 3:  severe the connection from curr and print the curr node and go right.
+                prev->right = NULL;
+                curr = curr->right;
+            }
+        }
+    }
+    cout << "Morris Preorder Traversal: " << endl;
+    printVector(preorder);
+}
+
+// void MorrisPreorder2(Tnode *root)
+// {
+//     if (root == NULL)
+//         return;
+
+//     auto curr = root;
+//     while (curr)
+//     {
+//         if (!curr->left)
+//         {
+//             Tnode *prev = curr->left;
+//             while (prev->right)
+//                 prev = prev->right;
+
+//             prev->right = curr->right;
+//             curr->right = curr->left;
+//             curr->left = NULL;
+//             cout << curr->data << " ";
+//         }
+//         curr = curr->right;
+//     }
+// }

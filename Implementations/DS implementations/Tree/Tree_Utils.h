@@ -983,7 +983,8 @@ string serialize(Tnode *node)
 
         if (curr == NULL)
             result.append("#,");
-        else {
+        else
+        {
             result.append(to_string(curr->data) + ",");
             queue.push(curr->left);
             queue.push(curr->right);
@@ -993,6 +994,110 @@ string serialize(Tnode *node)
     return result;
 }
 
-Tnode *deserialize(string s){
-    
+Tnode *deserialize(string s)
+{
+    if (s.size() == 0)
+        return NULL;
+
+    stringstream ss(s);
+    string str;
+    getline(ss, str, ',');
+    Tnode *root = new Tnode(stoi(str));
+    queue<Tnode *> queue;
+    queue.push(root);
+
+    while (!queue.empty())
+    {
+        Tnode *node = queue.front();
+        queue.pop();
+
+        getline(ss, str, ',');
+        if (str == "#")
+        {
+            node->left == NULL;
+        }
+        else
+        {
+            node->left = new Tnode(stoi(str));
+            queue.push(node->left);
+        }
+
+        getline(ss, str, ',');
+        if (str == "#")
+        {
+            node->right == NULL;
+        }
+        else
+        {
+            node->right = new Tnode(stoi(str));
+            queue.push(node->right);
+        }
+    }
+    return root;
+}
+
+void flatten(Tnode *node, Tnode *&prev)
+{
+    if (node == NULL)
+        return;
+
+    flatten(node->right, prev);
+    flatten(node->left, prev);
+    node->left = NULL;
+    node->right = prev;
+    prev = node;
+}
+
+void *flattenToLL1(Tnode *root)
+{
+    Tnode *prev = NULL;
+    flatten(root, prev);
+}
+
+void flattenToLL2(Tnode *root)
+{
+    if (root == NULL)
+        return;
+
+    Tnode *prev = NULL;
+    stack<Tnode *> stack;
+    stack.push(root);
+
+    while (!stack.empty())
+    {
+        auto curr = stack.top();
+        stack.pop();
+
+        if (curr->right)
+            stack.push(curr->right);
+
+        if (curr->left)
+            stack.push(curr->left);
+
+        if (!stack.empty())
+            curr->right = stack.top();
+        curr->left = NULL;
+    }
+}
+
+void flattenToLL3(Tnode *root)
+{
+    if (root == NULL)
+        return;
+
+    auto curr = root;
+    while (curr)
+    {
+        if (curr->left)
+        {
+            Tnode *prev = curr->left;
+            while (prev->right)
+                prev = prev->right;
+
+            prev->right = curr->right;
+            curr->right = curr->left;
+            curr->left = NULL;
+        }
+        curr = curr->right;
+    }
 }
