@@ -21,19 +21,33 @@
 
 int main()
 {
-    BST *root = NULL;
-    root = insert(root, 50);
-    insert(root, 30);
-    insert(root, 20);
-    insert(root, 40);
-    insert(root, 70);
-    insert(root, 60);
-    insert(root, 80);
+    // BST *root2 = NULL;
+    // root2 = insert(root2, 50);
+    // insert(root2, 30);
+    // insert(root2, 20);
+    // insert(root2, 40);
+    // insert(root2, 70);
+    // insert(root2, 60);
+    // insert(root2, 80);
+    // insert(root2, 10);
+    // insert(root2, 5);
+
+    BST *root = new BST(1);
+    insert(root, 2);
+    insert(root, 4);
+    insert(root, 3);
     insert(root, 10);
     insert(root, 5);
+    insert(root, 7);
+    insert(root, 6);
+    insert(root, 9);
+    insert(root, 8);
 
     cout << "Inorder Traversal: ";
-    inorder(root);
+    inorderTraversal(root);
+    cout << endl;
+    cout << "Preorder Traversal: ";
+    preorderTraversal(root);
     cout << endl;
 
     // int key = 40;
@@ -48,14 +62,14 @@ int main()
     // cout << "delete " << key2 << endl;
     // root = deleteNode(root, key2);
     // cout << "Inorder Traversal: ";
-    // inorder(root);
+    // inorderTraversal(root);
     // cout << endl;
 
     // int key3 = 5;
     // cout << "delete " << key3 << endl;
     // root = deleteNodeIterative(root, key3);
     // cout << "Inorder Traversal: ";
-    // inorder(root);
+    // inorderTraversal(root);
     // cout << endl;
 
     // BST from Preorder
@@ -66,12 +80,50 @@ int main()
 
     // inorder(root2);
 
-    bool isBST = checkBST(root, INT_MIN, INT_MAX);
-    cout << ((isBST == true) ? "YES" : "NO") << endl;
+    // bool isBST = checkBST(root, INT_MIN, INT_MAX);
+    // cout << ((isBST == true) ? "YES" : "NO") << endl;
 
-    int key = 8;
-    cout << "Ceil of " << key << " is: " << getCeil(root, key) << endl;
-    cout << "Floor of " << key << " is: " << getFloor(root, key) << endl;
+    // int key = 8;
+    // cout << "Ceil of " << key << " is: " << getCeil(root, key) << endl;
+    // cout << "Floor of " << key << " is: " << getFloor(root, key) << endl;
 
+    cout << "Total Nodes: " << countNodes(root) << endl;
+
+    // int k = 5;
+    // printf("%dth smallest element in BST: %d\n", k, KthSmallest(root, k));
+    // printf("%dth largest element in BST: %d\n", k, KthLargest(root, k));
+
+    vector<int> preorder = {1, 2, 4, 5, 3};
+    // BST *root3 = constructTree1(preorder);
+    // inorderTraversal(root3);
+    // int i = 0;
+    // BST *root4 = constructTree2(preorder, i, INT_MAX);
+    // inorderTraversal(root4);
+    // preorderTraversal(root4);
+
+    int val = 8;
+    // cout << "Inorder successor of " << val << " is: " << inorderSuccessor1(root, val)->data << endl;
+    cout << "Inorder successor of " << val << " is: " << inorderSuccessor2(root, val)->data << endl;
+    cout << "Inorder predecessor of " << val << " is: " << inorderPredecessor(root, val)->data << endl;
+
+    // BSTiterator it = BSTiterator(root);
+    // while (it.hasNext())
+    // {
+    //     cout << it.next() << " ";
+    // }
+    // cout << endl;
+    // while (it.hasBack())
+    // {
+    //     cout << it.back() << " ";
+    // }
+    // cout << endl;
+
+    auto itExists = twoSumBST(root, 25);
+    // cout << twoSumBST(root, 3).first << endl;
+
+    if (itExists.first)
+        cout << "Pair: " << itExists.second.first << ", " << itExists.second.second << endl;
+    else
+        cout << "No such pair exists.";
     return 0;
 }
