@@ -22,10 +22,10 @@ public:
             visited[i] = false;
     }
 
-    void addEdge(int v, int w)
+    void addEdge(int v, int u)
     {
-        adj[v].push_back(w);
-        adj[w].push_back(v);
+        adj[v].push_back(u);
+        adj[u].push_back(v);
     }
 
     bool hasPathBFS(int src, int dest)

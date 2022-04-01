@@ -1101,3 +1101,36 @@ void flattenToLL3(Tnode *root)
         curr = curr->right;
     }
 }
+
+bool checkTreeSum(node)
+{
+    if (node == NULL)
+        return false;
+
+    // unordered_map<Tnode *, Tnode *> parentTrack;
+    // markParents(node, parentTrack);
+
+    queue<Tnode *> queue;
+    queue.push(node);
+
+    while (!queue.empty())
+    {
+        int d1 = node->data;
+        int d2 = 0;
+
+        if (node->left)
+        {
+            queue.push(node->left);
+            d2 += node->left->data;
+        }
+        if (node->right)
+        {
+            queue.push(node->right);
+            d2 += node->right->data;
+        }
+
+        if (d1 != d2)
+            return false;
+    }
+    return true;
+}
