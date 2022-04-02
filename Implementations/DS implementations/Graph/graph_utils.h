@@ -11,6 +11,7 @@ class Graph
     bool *visited = new bool[v];
 
 public:
+    // TODO: constructor
     Graph(int v)
     {
         this->v = v;
@@ -18,17 +19,20 @@ public:
         // reset();
     }
 
+    // TODO: reseter for visited vector
     void reset()
     {
         for (int i = 0; i < v; i++)
             visited[i] = false;
     }
 
+    // TODO: Util to add edges
     void addEdge(int v, int w)
     {
         adj[v].push_back(w);
     }
 
+    // TODO: util to print a given vector
     void printVector(vector<int> v)
     {
         for (auto x : v)
@@ -38,6 +42,7 @@ public:
         cout << endl;
     }
 
+    // TODO: Breath First Traversal/Search of a Graph
     void BFS(int s)
     {
         // vector<int> bfs[v];
@@ -76,6 +81,7 @@ public:
         reset();
     }
 
+    // TODO: Depth First Traversal/Search of a Graph
     void DFS(int start)
     {
         reset();
@@ -104,6 +110,8 @@ public:
         }
         reset();
     }
+
+    // TODO: Depth First Recursive Traversal of a graph
     void DFSRecursive(int start)
     {
         visited[start] = true;
@@ -118,7 +126,8 @@ public:
         }
     }
 
-    bool checkCycleUtil(int s)
+    // TODO :  Check for cycle util for BFS
+     bool checkCycleUtil(int s)
     {
         // vector<int> parent(V, -1);
 
@@ -149,6 +158,7 @@ public:
         return false;
     }
 
+    // TODO: Check for cycle using BFS
     bool checkCycle()
     {
         reset();
@@ -160,6 +170,120 @@ public:
         }
         return false;
     }
+
+    // TODO: check for cycle util using DFS
+    bool checkCycleUtilDFS(int node, int parent)
+    {
+        visited[node] = true;
+        for (auto it : adj[node])
+        {
+            if (!visited[it])
+            {
+                if (checkCycleUtilDFS(it, parent))
+                    return true;
+            }
+            else if (parent != it)
+                return true;
+        }
+        return false;
+    }
+
+    // TODO: check for cycle using DFS
+    bool checkCycle2()
+    {
+        reset();
+        for (int i = 0; i < v; i++)
+        {
+            if (!visited[i])
+                if (checkCycleUtilDFS(i, -1))
+                    return true;
+        }
+        return false;
+    }
+
+    // TODO: check for Bipartite graph util using BFS
+    bool checkBiPartiteBFS(int s, vector<int> &color)
+    {
+        color[s] = 1;
+
+        queue<int> q;
+        q.push(s);
+
+        while (!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+
+            for (auto it : adj[node])
+            {
+                if (color[it] == -1)
+                {
+                    color[it] = 1 - color[node];
+                    q.push(it);
+                }
+                else if (color[it] == color[node])
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    // TODO: check for Bipartite graph using BFS
+    bool checkBiPartite1()
+    {
+        vector<int> color(v, -1);
+
+        for (int i = 0; i < v; i++)
+        {
+            if (color[i] == -1)
+                if (!checkBiPartiteBFS(i, color))
+                    return false;
+        }
+        return true;
+    }
+
+    // TODO: check for Bipartite graph util using DFS
+    bool checkBiPartiteBFS(int s, vector<int> &color)
+    {
+        color[s] = 1;
+
+        queue<int> q;
+        q.push(s);
+
+        while (!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+
+            for (auto it : adj[node])
+            {
+                if (color[it] == -1)
+                {
+                    color[it] = 1 - color[node];
+                    q.push(it);
+                }
+                else if (color[it] == color[node])
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    // TODO: check for Bipartite graph using DFS
+    bool checkBiPartite1()
+    {
+        vector<int> color(v, -1);
+
+        for (int i = 0; i < v; i++)
+        {
+            if (color[i] == -1)
+                if (!checkBiPartiteBFS(i, color))
+                    return false;
+        }
+        return true;
+    }
+
+    
 
     bool hasPathRecursive(int src, int dest)
     {

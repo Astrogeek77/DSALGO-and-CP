@@ -3,6 +3,7 @@
 
 int main()
 {
+    // ! Graph 1
     // Graph g(4);
     // g.addEdge(0, 1);
     // g.addEdge(0, 2);
@@ -11,26 +12,32 @@ int main()
     // g.addEdge(2, 3);
     // g.addEdge(3, 3);
 
-    // Graph g(4);
-    // g.addEdge(0, 1);
-    // g.addEdge(0, 2);
-    // g.addEdge(1, 2);
-    // g.addEdge(2, 0);
-    // g.addEdge(2, 3);
-    // g.addEdge(3, 3);
+    // ! Graph 2
+    Graph g(3);
+    g.addEdge(0, 1);
+    g.addEdge(1, 2);
 
-    // 0 ------> 1
-    //           |
-    //           |
-    // 2         2
-
-    // Graph g(4);
-    // g.addEdge(0, 1);
+    // ! Graph 3
+    // Graph g(5);
+    // g.addEdge(1, 0);
     // g.addEdge(0, 2);
-    // g.addEdge(1, 2);
-    // g.addEdge(2, 0);
-    // g.addEdge(2, 3);
-    // g.addEdge(3, 3);
+    // g.addEdge(2, 1);
+    // g.addEdge(0, 3);
+    // g.addEdge(3, 4);
+
+    //?        Operations
+
+    cout << "Following is Breadth First Traversal (starting from vertex 2) \n";
+    g.BFS(2);
+    cout << endl;
+
+    cout << "Following is Depth First Traversal (starting from vertex 2) \n";
+    g.DFS(2);
+    cout << endl;
+
+    cout << "Following is Depth First Traversal (Recursive) (starting from vertex 2) \n";
+    g.DFSRecursive(2);
+    cout << endl;
 
     // if (g.checkCycle())
     //     cout << "Graph contains cycle";
@@ -38,32 +45,16 @@ int main()
     //     cout << "Graph doesn't contain cycle";
     // return 0;
 
-    Graph g1(5);
-    g1.addEdge(1, 0);
-    g1.addEdge(0, 2);
-    g1.addEdge(2, 1);
-    g1.addEdge(0, 3);
-    g1.addEdge(3, 4);
-    g1.checkCycle() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
+    // g.reset();
+    // g.checkCycle() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
+    // g.checkCycle2() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
 
-    g1.reset();
+    g.checkCycle2() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
 
-    Graph g2(2);
-    g2.addEdge(0, 1);
-    g2.addEdge(1, 2);
-    g2.checkCycle() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
-
-    // cout << "Following is Breadth First Traversal (starting from vertex 2) \n";
-    // g.BFS(2);
-    // cout << endl;
-
-    // cout << "Following is Depth First Traversal (starting from vertex 2) \n";
-    // g.DFS(2);
-    // cout << endl;
-
-    // cout << "Following is Depth First Traversal (Recursive) (starting from vertex 2) \n";
-    // g.DFSRecursive(2);
-    // cout << endl;
+    if (g.checkBiPartite1())
+        cout << "Graph is Bipartile.";
+    else
+        cout << "Graph is not Bipartile.";
 
     // g.reset();
     // cout << "Path exists between 2 to 3: " << g.hasPathRecursive(2, 3) << endl;
