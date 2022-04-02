@@ -1,9 +1,8 @@
-// #include "graph_Boilerplate.h"
-#include "graph_utils.h"
+#include "DG_utils.h"
 
 int main()
 {
-    // ! Graph 1
+    // ! Graph 1 (Cyclic)
     // Graph g(4);
     // g.addEdge(0, 1);
     // g.addEdge(0, 2);
@@ -12,12 +11,12 @@ int main()
     // g.addEdge(2, 3);
     // g.addEdge(3, 3);
 
-    // ! Graph 2
-    Graph g(3);
-    g.addEdge(0, 1);
-    g.addEdge(1, 2);
+    // ! Graph 2   (Acyclic)
+    // Graph g(3);
+    // g.addEdge(0, 1);
+    // g.addEdge(1, 2);
 
-    // ! Graph 3
+    // ! Graph 3   (Cyclic)
     // Graph g(5);
     // g.addEdge(1, 0);
     // g.addEdge(0, 2);
@@ -25,38 +24,48 @@ int main()
     // g.addEdge(0, 3);
     // g.addEdge(3, 4);
 
+    // ! Graph 4   (Acyclic)
+    Graph g(4);
+    g.addEdge(0, 1);
+    g.addEdge(1, 2);
+    g.addEdge(2, 3);
+
     //?        Operations
 
-    cout << "Following is Breadth First Traversal (starting from vertex 2) \n";
-    g.BFS(2);
+    cout << "Following is Breadth First Traversal (starting from vertex 0): ";
+    g.BFS(0);
     cout << endl;
 
-    cout << "Following is Depth First Traversal (starting from vertex 2) \n";
-    g.DFS(2);
+    cout << "Following is Depth First Traversal (starting from vertex 0): ";
+    g.DFS(0);
     cout << endl;
 
-    cout << "Following is Depth First Traversal (Recursive) (starting from vertex 2) \n";
-    g.DFSRecursive(2);
+    g.reset();
+
+    cout << "Following is Depth First Traversal (Recursive) (starting from vertex 0): ";
+    g.DFSRecursive(0);
     cout << endl;
 
-    // if (g.checkCycle())
-    //     cout << "Graph contains cycle";
-    // else
-    //     cout << "Graph doesn't contain cycle";
-    // return 0;
-
-    // g.reset();
-    // g.checkCycle() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
-    // g.checkCycle2() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
-
-    g.checkCycle2() ? cout << "Graph contains cycle\n" : cout << "Graph doesn't contain cycle\n";
-
+    cout << "BiPartite check using BFS: ";
     if (g.checkBiPartite1())
-        cout << "Graph is Bipartile.";
+        cout << "Graph is Bipartile.\n";
     else
-        cout << "Graph is not Bipartile.";
+        cout << "Graph is not Bipartile.\n";
 
-    // g.reset();
+    cout << "BiPartite check using DFS: ";
+    if (g.checkBiPartite2())
+        cout << "Graph is Bipartile.\n";
+    else
+        cout << "Graph is not Bipartile.\n";
+
+    cout << "Topological Sort (DFS): ";
+    g.TopologicalSortDFS();
+
+    cout << "Topological Sort (BFS): ";
+    g.topSortBFS();
+
+    
+
     // cout << "Path exists between 2 to 3: " << g.hasPathRecursive(2, 3) << endl;
     // cout << "Path exists between 3 to 2: " << g.hasPathRecursive(3, 2) << endl;
     // cout << "Path exists between 3 to 3: " << g.hasPathRecursive(3, 3) << endl;

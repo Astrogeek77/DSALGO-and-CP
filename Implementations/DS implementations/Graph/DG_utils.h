@@ -2,6 +2,7 @@
 #include <list>
 #include <vector>
 #include <queue>
+#include <stack>
 using namespace std;
 
 class Graph
@@ -47,7 +48,7 @@ public:
     {
         // vector<int> bfs[v];
         // Mark all the vertices as not visited
-        // reset();
+        reset();
 
         // Create a queue for BFS
         list<int> queue; // list behaving like a queue
@@ -85,7 +86,6 @@ public:
     void DFS(int start)
     {
         reset();
-
         list<int> stack; // list behaving like a stack
 
         visited[start] = true;
@@ -108,7 +108,6 @@ public:
                 }
             }
         }
-        reset();
     }
 
     // TODO: Depth First Recursive Traversal of a graph
@@ -124,81 +123,6 @@ public:
             if (!visited[*i])
                 DFSRecursive(*i);
         }
-    }
-
-    // TODO :  Check for cycle util for BFS
-     bool checkCycleUtil(int s)
-    {
-        // vector<int> parent(V, -1);
-
-        // Create a queue for BFS
-        queue<pair<int, int>> q;
-
-        visited[s] = true;
-        q.push({s, -1});
-
-        while (!q.empty())
-        {
-
-            int node = q.front().first;
-            int parent = q.front().second;
-            q.pop();
-
-            for (auto it : adj[node])
-            {
-                if (!visited[it])
-                {
-                    visited[it] = true;
-                    q.push({it, node});
-                }
-                else if (parent != it)
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    // TODO: Check for cycle using BFS
-    bool checkCycle()
-    {
-        reset();
-        for (int i = 0; i < v; i++)
-        {
-            if (!visited[i])
-                if (checkCycleUtil(i))
-                    return true;
-        }
-        return false;
-    }
-
-    // TODO: check for cycle util using DFS
-    bool checkCycleUtilDFS(int node, int parent)
-    {
-        visited[node] = true;
-        for (auto it : adj[node])
-        {
-            if (!visited[it])
-            {
-                if (checkCycleUtilDFS(it, parent))
-                    return true;
-            }
-            else if (parent != it)
-                return true;
-        }
-        return false;
-    }
-
-    // TODO: check for cycle using DFS
-    bool checkCycle2()
-    {
-        reset();
-        for (int i = 0; i < v; i++)
-        {
-            if (!visited[i])
-                if (checkCycleUtilDFS(i, -1))
-                    return true;
-        }
-        return false;
     }
 
     // TODO: check for Bipartite graph util using BFS
@@ -231,6 +155,7 @@ public:
     // TODO: check for Bipartite graph using BFS
     bool checkBiPartite1()
     {
+        reset();
         vector<int> color(v, -1);
 
         for (int i = 0; i < v; i++)
@@ -243,47 +168,114 @@ public:
     }
 
     // TODO: check for Bipartite graph util using DFS
-    bool checkBiPartiteBFS(int s, vector<int> &color)
+    bool checkBiPartiteDFS(int node, vector<int> &color)
     {
-        color[s] = 1;
-
-        queue<int> q;
-        q.push(s);
-
-        while (!q.empty())
+        color[node] = 1;
+        for (auto it : adj[node])
         {
-            int node = q.front();
-            q.pop();
-
-            for (auto it : adj[node])
+            if (color[it] == -1)
             {
-                if (color[it] == -1)
-                {
-                    color[it] = 1 - color[node];
-                    q.push(it);
-                }
-                else if (color[it] == color[node])
+                color[it] = 1 - color[node];
+                if (!checkBiPartiteDFS(it, color))
                     return false;
             }
+            else if (color[it] == color[node])
+                return false;
         }
         return true;
     }
 
     // TODO: check for Bipartite graph using DFS
-    bool checkBiPartite1()
+    bool checkBiPartite2()
     {
+        reset();
         vector<int> color(v, -1);
 
         for (int i = 0; i < v; i++)
         {
             if (color[i] == -1)
-                if (!checkBiPartiteBFS(i, color))
+                if (!checkBiPartiteDFS(i, color))
                     return false;
         }
         return true;
     }
 
-    
+    // TODO Util for Topological Sort using DFS
+    void topSort1(int node, stack<int> &stack)
+    {
+        visited[node] = true;
+
+        for (auto it : adj[node])
+        {
+            if (!visited[it])
+            {
+                topSort1(it, stack);
+            }
+        }
+        stack.push(node);
+    }
+
+    // TODO Topological Sort using DFS
+    void TopologicalSortDFS()
+    {
+        // ! Only Possible in DAGs
+        reset();
+        vector<int> topSort;
+        stack<int> stack;
+
+        for (int i = 0; i < v; i++)
+        {
+            if (!visited[i])
+            {
+                topSort1(i, stack);
+            }
+        }
+
+        while (!stack.empty())
+        {
+            topSort.push_back(stack.top());
+            stack.pop();
+        }
+        printVector(topSort);
+    }
+
+    // TODO Topological Sort using BFS
+    void topSortBFS()
+    {
+        reset();
+        vector<int> inDegree(v, 0);
+        vector<int> topSort;
+        queue<int> q;
+
+        for (int i = 0; i < v; i++)
+        {
+            for (auto it : adj[i])
+                inDegree[it]++;
+        }
+
+        for (int i = 0; i < v; i++)
+        {
+            if (inDegree[i] == 0)
+                q.push(i);
+        }
+
+        while (!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            topSort.push_back(node);
+
+            for (auto it : adj[node])
+            {
+                inDegree[it]--;
+                if (inDegree[it] == 0)
+                    q.push(it);
+            }
+        }
+        printVector(topSort);
+    }
+
+    bool checkCycle(){}
 
     bool hasPathRecursive(int src, int dest)
     {
