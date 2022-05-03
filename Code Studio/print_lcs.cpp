@@ -29,7 +29,7 @@ int lcs(string s, string t)
 
     string str = "";
     for(int i = 0; i < len; i++)
-        str += "$"; // dummy values
+        str += '$'; // dummy values
 
     while(i > 0 and j > 0){
         if(s[i-1] == t[j - 1]) {
