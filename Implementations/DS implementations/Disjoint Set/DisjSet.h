@@ -5,7 +5,7 @@ using namespace std;
 
 class DisjointSet
 {
-    int *rank, *parent;
+    int *rank, *parent, size;
     int n;
 
 public:
@@ -13,6 +13,8 @@ public:
     {
         rank = new int[n];
         parent = new int[n];
+        size = new int[n];
+
         this->n = n;
         makeSet();
     }
@@ -23,6 +25,7 @@ public:
         {
             parent[i] = i;
             rank[i] = 0;
+            size[i] = 1;
         }
     }
 
@@ -33,7 +36,7 @@ public:
         return parent[i] = findPar(parent[i]); // Path Compression
     }
 
-    void Union(int u, int v)
+    void UnionByRank(int u, int v)
     {
         u = findPar(u);
         v = findPar(v);
@@ -47,6 +50,23 @@ public:
             // any of the either can be assigned
             parent[v] = u;
             rank[u]++;
+        }
+    }
+
+    void UnionBySize(int u, int v)
+    {
+        u = findPar(u);
+        v = findPar(v);
+
+        if(size[u] < size[v])
+        {
+            parent[u] = v;
+            size[v] += size[u];
+        }
+        else 
+        {
+            parent[v] = u;
+            size[u] += size[v];
         }
     }
 };
