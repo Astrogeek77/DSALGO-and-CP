@@ -171,8 +171,8 @@ vector<vector<int>> levelOrderBottom(TreeNode *root)
         }
         answer.push_back(row);	
     }
-    // print2dVector(answer);
     reverse(answer.begin(), answer.end());
+    print2dVector(answer);
     return answer;
 }
 
@@ -191,8 +191,8 @@ void helper(TreeNode* node, int level = 0)
 vector<vector<int>> levelOrderBottom(TreeNode *root)
 {
     helper(root);
-    // print2dVector(ans);
     reverse(ans.begin(), ans.end());
+    print2dVector(ans);
     return ans;
 }
 
