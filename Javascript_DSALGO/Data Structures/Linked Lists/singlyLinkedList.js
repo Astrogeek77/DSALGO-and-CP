@@ -225,6 +225,23 @@ class SinglyLinkedList2{
     this.printList(prev)
     return prev
   }
+
+  // rotate(num) {
+  //   if (num > this.length) return;
+  //   if (num < 0) num = this.length + num;
+
+  //   let curr = this.head,
+  //     prev = null;
+  //   while (num--) {
+  //     prev = curr;
+  //     curr = curr.next;
+  //   }
+  //   let oldHead = this.head;
+  //   this.head = curr;
+    // this.tail.next = oldHead;
+    // this.tail = prev;
+  //   prev.next = null;
+  // }
 }
 
 let list2 = new SinglyLinkedList2()
