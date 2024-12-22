@@ -424,6 +424,27 @@ int KthLargest(BST *node, int k)
     }
     return ans;
 }
+
+// check if the tree is balanced
+int height(BST *node)
+{
+    if (node == NULL)
+        return 0;
+    return max(height(node->left), height(node->right) + 1);
+}
+
+bool isBalanced(BST *node)
+{
+    if (node == NULL)
+        return true;
+
+    int lh = height(node->left);
+    int rh = height(node->right);
+
+    return abs(lh - rh) <= 0 and
+           isBalanced(node->left) and isBalanced(node->right);
+}
+
 BST *getLCA(BST *node, int val1, int val2)
 {
     if (node == NULL || node->data == val1 || node->data == val2)
@@ -480,10 +501,11 @@ BST *constructTree2(vector<int> &preorder, int &i, int Bound)
 }
 
 // Contruct BST from postorder and inorder
-TreeNode* build(vector<int> &inorder, vector<int> &postorder, int &index, int inOrderStart, int inOrderEnd, int n, map< int, int> &nodeToIndex)
+TreeNode *build(vector<int> &inorder, vector<int> &postorder, int &index, int inOrderStart, int inOrderEnd, int n, map<int, int> &nodeToIndex)
 {
-    //base case;
-    if (index < 0 || inOrderStart > inOrderEnd) return NULL;
+    // base case;
+    if (index < 0 || inOrderStart > inOrderEnd)
+        return NULL;
 
     int element = postorder[index--];
     TreeNode *root = new TreeNode(element);
@@ -491,11 +513,11 @@ TreeNode* build(vector<int> &inorder, vector<int> &postorder, int &index, int in
 
     root->right = build(inorder, postorder, index, position + 1, inOrderEnd, n, nodeToIndex);
     root->left = build(inorder, postorder, index, inOrderStart, position - 1, n, nodeToIndex);
-    
+
     return root;
 }
 
-TreeNode* buildTree(vector<int> &inorder, vector<int> &postorder)
+TreeNode *buildTree(vector<int> &inorder, vector<int> &postorder)
 {
     int n = inorder.size();
     int postOrderIndex = n - 1;
@@ -752,7 +774,6 @@ pair<bool, pair<int, int>> twoSumBST(BST *node, int target)
 //     }
 // };
 
-
-BST *largestBST(BST *node){
-
-}
+// BST *largestBST(BST *node)
+// {
+// }

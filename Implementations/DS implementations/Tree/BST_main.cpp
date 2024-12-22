@@ -118,12 +118,14 @@ int main()
     // }
     // cout << endl;
 
-    auto itExists = twoSumBST(root, 25);
-    // cout << twoSumBST(root, 3).first << endl;
+    // auto itExists = twoSumBST(root, 25);
+    // // cout << twoSumBST(root, 3).first << endl;
 
-    if (itExists.first)
-        cout << "Pair: " << itExists.second.first << ", " << itExists.second.second << endl;
-    else
-        cout << "No such pair exists.";
-    return 0;
+    // if (itExists.first)
+    //     cout << "Pair: " << itExists.second.first << ", " << itExists.second.second << endl;
+    // else
+    //     cout << "No such pair exists.";
+    // return 0;
+
+    cout << isBalanced(root) << endl;
 }
