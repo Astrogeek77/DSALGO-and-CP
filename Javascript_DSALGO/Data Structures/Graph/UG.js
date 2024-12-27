@@ -1,4 +1,6 @@
-class Graph {
+// unwieghted undirected graph
+
+class UG {
   constructor() {
     this.adjacencyList = {};
   }
@@ -106,7 +108,7 @@ class Graph {
   }
 }
 
-var graph = new Graph();
+var graph = new UG();
 
 // graph.addVertex("Del")
 // graph.addVertex("Hyd")
