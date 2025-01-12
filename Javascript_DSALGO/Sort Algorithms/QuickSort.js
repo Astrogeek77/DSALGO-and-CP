@@ -56,3 +56,6 @@ function quickSort(arr, comp, left = 0, right = arr.length - 1) {
   }
   return arr;
 }
+
+
+console.log(quickSort([10, 7, 2, 9, 3, 1]))

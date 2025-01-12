@@ -1,6 +1,6 @@
 class MaxBinaryHeap {
   constructor() {
-    this.values = [41, 39, 33, 18, 27, 12];
+    this.values = [];
     this.size = this.values.length;
   }
 
@@ -106,7 +106,10 @@ class MaxBinaryHeap {
 
 var heap = new MaxBinaryHeap();
 
-heap.insert(55);
+// heap.insert(55);
+// heap.insert(50);
+// heap.insert(45);
+// heap.insert(75);
 // console.log(heap);
 
 // console.log(heap.extractMax());
@@ -130,4 +133,26 @@ heap.insert(55);
 // console.log(heap.extractMax());
 // console.log(heap);
 
-console.log(heap.getDescHeapSort())
+// console.log(heap.getDescHeapSort())
+
+
+heap.insert(1)
+heap.insert(2)
+heap.insert(3)
+heap.insert(4)
+heap.insert(5)
+heap.insert(6)
+
+console.log(heap.values)
+
+console.log(heap.extractMax())
+
+console.log(heap.values);
+
+console.log(heap.extractMax());
+
+console.log(heap.values);
+
+console.log(heap.extractMax());
+
+console.log(heap.values);
